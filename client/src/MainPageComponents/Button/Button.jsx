@@ -2,11 +2,13 @@ import React from 'react';
 import './Button.scss';
 import { MdArrowRightAlt } from "react-icons/md";
 
-const Button = ({ icon, title, bg, color }) => {
+const Button = ({ icon, title, bg, color, classname }) => {
     return (
-        <button className="btn" style={{ backgroundColor: bg || "black", color: color || "white" }}>
+        <button className={classname ? classname : "btn"} style={{ backgroundColor: bg || "black", color: color || "white" }}>
             <div>{title}</div>
-            {icon && icon || <MdArrowRightAlt />}
+            {icon &&
+                <div className='btnicon'>{icon}</div>
+            }
         </button>
     );
 }

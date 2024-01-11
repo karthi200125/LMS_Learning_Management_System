@@ -1,8 +1,11 @@
-import React from 'react'
+import LpHeading from '../LpHeading/LpHeading'
+import './LandingPageHome.scss'
 
 const LandingPageHome = () => {
   return (
-    <div>LandingPageHome</div>
+    <div className='lphome'>
+      <LpHeading/>
+    </div>
   )
 }
 
