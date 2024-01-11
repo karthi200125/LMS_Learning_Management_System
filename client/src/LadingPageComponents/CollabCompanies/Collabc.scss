@@ -1,0 +1,45 @@
+.collabc {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+
+    .cnames {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 10px;
+
+        span,
+        p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .active {
+            border-bottom: 1px solid white;
+            color: white;
+            transition: 0.5s ease-in-out;
+        }
+    }
+
+    .images {
+        width: 100%;
+        padding: 20px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 50px;        
+
+        img {
+            width: 200px;
+            height: 100px;
+            object-fit: contain;
+            // mix-blend-mode: multiply;                        
+        }
+    }
+}

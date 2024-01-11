@@ -1,0 +1,45 @@
+.review {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px 40px;
+
+    .peoples {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        margin-top: 30px;
+
+        .rev {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            width: 25%;            
+            overflow: hidden;
+
+            img {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 50%;
+                box-shadow: 0 0 70px #c151e9;
+                margin-top: 55px;
+            }
+
+            p{
+                color: rgba(255, 255, 255, 0.5);
+                text-align: center;
+            }
+            span{
+                border-bottom: 1px solid #c151e9 ;
+            }
+        }
+    }
+}

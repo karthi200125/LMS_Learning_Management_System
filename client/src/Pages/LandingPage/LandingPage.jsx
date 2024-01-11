@@ -6,6 +6,7 @@ import CourseCards from '../../LadingPageComponents/CourseCards/CourseCards'
 import Reviews from '../../LadingPageComponents/Reviews/Reviews'
 import Footer from '../../LadingPageComponents/Footer/Footer'
 import './LandingPage.scss'
+import Future from '../../LadingPageComponents/Future/Future'
 
 const LandingPage = () => {
   return (
@@ -13,8 +14,9 @@ const LandingPage = () => {
       <LandingPageNavbar />
       <LandingPageHome />
       <CollabCompanies />
-      <CourseCards />      
+      <CourseCards />
       <Reviews />
+      <Future />
       <Footer />
     </div>
   )

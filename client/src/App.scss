@@ -9,5 +9,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(#040318 , #040318 , #1f0c44);    
+    background: linear-gradient(#040318, #040318);
+}
+
+li {
+    list-style: none;
 }

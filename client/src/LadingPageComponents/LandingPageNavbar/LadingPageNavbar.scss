@@ -1,5 +1,5 @@
 .lpnavbar {
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 80px;
     top: 0;
@@ -29,7 +29,7 @@
 
             &:hover {
                 opacity: 0.6;
-                transition: 0.3s;
+                transition: 0.3s;                
             }
         }
     }

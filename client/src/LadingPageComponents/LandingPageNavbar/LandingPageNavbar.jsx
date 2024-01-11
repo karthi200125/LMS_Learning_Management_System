@@ -6,19 +6,18 @@ import { MdArrowRightAlt } from "react-icons/md";
 const LandingPageNavbar = () => {
   return (
     <div className='lpnavbar'>
-      <div className="logo">LMS</div>
+      <div className="logo">SkillSphere</div>
 
       <ul className="mid">
-        <li>Products</li>
-        <li>Goverment</li>
-        <li>Solutions</li>
-        <li>Conatct</li>
+        <li>Courses</li>
         <li>Pricing</li>
         <li>Resources</li>
+        <li>Solutions</li>
+        <li>Contact</li>
       </ul>
 
       <div className="right">
-        <Button title="Demo" icon={<MdArrowRightAlt size={20}/>} />
+        <Button title="Join for free" icon={<MdArrowRightAlt size={20} />} />
         <Button title="Login" classname="transparent" />
       </div>
     </div>

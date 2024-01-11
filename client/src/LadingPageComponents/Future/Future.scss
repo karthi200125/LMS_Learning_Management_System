@@ -1,28 +1,38 @@
-.lphome {
+.future {
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-    margin-top: 80px;
     position: relative;
+
+    h1 {
+        font-size: 70px;
+
+        span {
+            background: linear-gradient(to right, #8667fd, #c64fea, #fff45c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
 
     .btm {
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 20px;
         flex-direction: row;
-        gap: 15px;
     }
 
     .glow {
         position: absolute;
         width: 200px;
-        height: 200px;        
+        height: 200px;
         background: linear-gradient(to bottom, #c151e9 50%, #26104d 50%);
-        filter: blur(120px);
-        bottom: 0;        
+        filter: blur(120px);        
+        z-index: -1;
     }
+
 }

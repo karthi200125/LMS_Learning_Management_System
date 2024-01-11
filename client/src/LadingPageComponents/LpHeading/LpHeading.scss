@@ -1,3 +1,68 @@
-.lph{
-    
+.lph {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 70px;
+
+    .wrapper {
+        box-sizing: content-box;
+        height: 70px;
+        padding: 50px 30px;
+        display: flex;
+        margin-left: 10px;     
+        margin-bottom: -30px;   
+        
+        .words {
+            overflow: hidden;            
+            
+            span {
+                display: block;
+                height: 100%;
+                padding-left: 10px;
+                background: linear-gradient(to right, #8667fd, #c64fea, #fff45c);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: spin-words 10s infinite;
+            }
+
+            @keyframes spin-words {
+                10% {
+                    transform: translateY(-112%);
+                }
+
+                25% {
+                    transform: translateY(-100%);
+                }
+
+                35% {
+                    transform: translateY(-212%);
+                }
+
+                50% {
+                    transform: translateY(-200%);
+                }
+
+                60% {
+                    transform: translateY(-312%);
+                }
+
+                75% {
+                    transform: translateY(-300%);
+                }
+
+                85% {
+                    transform: translateY(-412%);
+                }
+
+                100% {
+                    transform: translateY(-400%);
+                }
+            }
+        }
+
+    }
+
 }
