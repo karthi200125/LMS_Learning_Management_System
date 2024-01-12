@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .lph {
     width: 100%;
     display: flex;
@@ -7,17 +9,28 @@
     gap: 10px;
     font-size: 70px;
 
+    @include mobile {
+        font-size: 40px;
+    }
+
     .wrapper {
         box-sizing: content-box;
         height: 70px;
         padding: 50px 30px;
         display: flex;
-        margin-left: 10px;     
-        margin-bottom: -30px;   
-        
+        margin-left: 10px;
+        margin-bottom: -30px;
+
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            height: 90px;
+            text-align: center;
+        }
+
         .words {
-            overflow: hidden;            
-            
+            overflow: hidden;
+
             span {
                 display: block;
                 height: 100%;

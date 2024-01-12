@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .footer {
     display: flex;
     align-items: center;
@@ -14,6 +16,12 @@
         justify-content: space-between;
         flex-direction: row;
         padding: 0 40px;
+
+        @include mobile {
+            flex-flow: wrap row;
+            padding: 10px;
+            gap: 20px;
+        }
 
         ul {
             display: flex;
@@ -48,6 +56,18 @@
         align-items: center;
         justify-content: space-between;
         padding: 40px 40px;
+
+        @include mobile {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        span {
+            @include mobile {
+                width: 100%;
+                text-align: center;
+            }
+        }
 
         .icons {
             display: flex;

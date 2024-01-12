@@ -30,15 +30,15 @@ const CourseCards = () => {
   ]
 
   return (
-    <>
-      <h1>See what you can learn with us</h1>
+    <div className="cards">
+      <h1 className="cardtitle">See what you can learn with us</h1>
       <div className='lpcards'>
         {cards.map((card) => (
           <Card key={card.id} card={card} />
-        ))}
+        ))}        
       </div>
       <Button title="All" icon={<MdArrowRightAlt size={25} />} />
-    </>
+    </div>
   )
 }
 

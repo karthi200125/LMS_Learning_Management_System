@@ -1,7 +1,9 @@
 @import '../../font.scss';
 
 .landingpage {
-    width: 100%;
+    // width: 100%;
+    max-width: 1366px;
+    margin: 0 auto;
     height: max-content;
     display: flex;
     flex-direction: column;
@@ -10,4 +12,5 @@
     gap: 30px;
     color: white;
     font-family: "Resist Sans Text Thin";
+    overflow-x: hidden;
 }

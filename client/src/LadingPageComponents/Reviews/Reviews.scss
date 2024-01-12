@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .review {
     width: 100%;
     height: max-content;
@@ -8,6 +10,13 @@
     gap: 30px;
     padding: 20px 40px;
 
+    h1 {
+        @include mobile {
+            font-size: 25px;
+            text-align: center;
+        }
+    }
+
     .peoples {
         display: flex;
         align-items: center;
@@ -15,14 +24,23 @@
         flex-direction: row;
         margin-top: 30px;
 
+        @include mobile {
+            flex-direction: column;
+        }
+
         .rev {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             gap: 20px;
-            width: 25%;            
+            width: 25%;
             overflow: hidden;
+
+            @include mobile {
+                width: 100%;
+            }
+
 
             img {
                 width: 150px;
@@ -33,12 +51,13 @@
                 margin-top: 55px;
             }
 
-            p{
+            p {
                 color: rgba(255, 255, 255, 0.5);
                 text-align: center;
             }
-            span{
-                border-bottom: 1px solid #c151e9 ;
+
+            span {
+                border-bottom: 1px solid #c151e9;
             }
         }
     }

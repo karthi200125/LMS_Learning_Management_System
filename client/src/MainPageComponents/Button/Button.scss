@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .btn {
     width: max-content;
     padding: 10px 20px;
@@ -10,6 +12,10 @@
     cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: linear-gradient(#412b7f, #1d113f);
+
+    @include mobile {
+        padding: 10px;
+    }
 
     &:hover {
         background: #412b7f !important;
@@ -43,9 +49,13 @@
     border: none;
     background-color: transparent !important;
 
+    @include mobile {
+        padding: 10px;
+    }
+
     &:hover {
         background-color: rgba(255, 255, 255, 0.2) !important;
-        transition: 0.5s ease;        
+        transition: 0.5s ease;
 
         .btnicon {
             transform: translateX(5px);

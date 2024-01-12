@@ -11,7 +11,6 @@ import cred from '../../assets/companies/cred.png'
 import vit from '../../assets/companies/vit.png'
 import iit from '../../assets/companies/iit.png'
 
-
 const CollabCompanies = () => {
   const [currentSpan, setCurrentSpan] = useState(1);
 

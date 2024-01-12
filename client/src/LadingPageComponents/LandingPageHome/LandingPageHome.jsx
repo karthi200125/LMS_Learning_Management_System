@@ -7,8 +7,7 @@ const LandingPageHome = () => {
   return (
     <div className='lphome'>
       <LpHeading />
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque placeat cum odit expedita </p>
-      <p>Cumque placeat cum odit expedita </p>
+      <p className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque placeat cum odit expedita </p>      
       <div className='btm'>
         <Button title="Learn more" icon={<MdArrowRightAlt size={25} />} />
         <Button title="Browse courses" classname='transparent' icon={<MdArrowRightAlt size={25} />} />

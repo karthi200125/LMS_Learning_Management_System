@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .lphome {
     width: 100%;
     height: calc(100vh - 80px);
@@ -15,14 +17,29 @@
         justify-content: center;
         flex-direction: row;
         gap: 15px;
+
+        @include mobile{
+            gap: 5;
+        }
+
+        
+    }
+
+    .desc {        
+        width: 40%;
+        text-align: center;        
+
+        @include mobile{
+            width: 90%;
+        }
     }
 
     .glow {
         position: absolute;
         width: 200px;
-        height: 200px;        
+        height: 200px;
         background: linear-gradient(to bottom, #c151e9 50%, #26104d 50%);
         filter: blur(120px);
-        bottom: 0;        
+        bottom: 0;
     }
 }
