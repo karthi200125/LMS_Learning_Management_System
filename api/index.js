@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import AuthRoute from './Routes/AuthRoute.js';
 import { handleError } from './Utils/ErrorHandlingMidleware.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 dotenv.config();
@@ -11,9 +12,10 @@ dotenv.config();
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser())
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_DB)
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.error("MongoDB failed to connect", err));
 

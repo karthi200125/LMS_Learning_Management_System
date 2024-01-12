@@ -4,7 +4,7 @@
 
     input {
         width: 100%;
-        padding: 10px;
+        padding: 15px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 5px;
         outline: none;
@@ -17,7 +17,7 @@
     span {
         position: absolute;
         left: 0;
-        padding: 10px;
+        padding: 15px;
         pointer-events: none;
         font-size: 1em;
         transition: 0.5s;
@@ -35,7 +35,7 @@
 .inputbox input:focus~span {
     color: #c64fea;
     transform: translateX(10px) translateY(-3px);
-    font-size: 0.65em;
+    font-size: 0.85em;
     padding: 0 10px;
     background-color: white;
 }

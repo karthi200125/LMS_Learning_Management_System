@@ -31,7 +31,7 @@ const Reviews = () => {
       <h1>From the SkillShere community</h1>
       <div className="peoples">
         {revs.map((rev) => (
-          <div className="rev">
+          <div className="rev" key={rev}>
             <img src={rev.img} alt="" />
             <h1>{rev.name}</h1>
             <span>{rev.country}</span>

@@ -8,13 +8,15 @@ import LandingPage from './Pages/LandingPage/LandingPage';
 import Profile from './Pages/Profile/Profile';
 import Course from './Pages/Course/Course';
 import TeacherMode from './Pages/TeacherMode/TeacherMode';
+import { Toaster } from 'sonner'
 import './App.scss'
+import { useSelector } from 'react-redux'
 
 const App = () => {
-  const currentUser = false;
 
+  const { user: currentUser } = useSelector(state => state.auth);
   const queryClient = new QueryClient();
-  
+
   const Layout = ({ children }) => {
     return (
       <QueryClientProvider client={queryClient}>
@@ -73,6 +75,7 @@ const App = () => {
 
   return (
     <div>
+      <Toaster />
       <RouterProvider router={router} />
     </div>
   );
