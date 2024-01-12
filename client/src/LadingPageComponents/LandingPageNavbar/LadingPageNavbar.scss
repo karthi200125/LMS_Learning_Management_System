@@ -38,6 +38,11 @@
             display: none;
         }
 
+        @include tablet {
+            display: none;
+        }
+
+
         li {
             cursor: pointer;
 
@@ -55,8 +60,8 @@
         gap: 10px;
 
         @include mobile {
-            gap: 5px;            
+            gap: 5px;
         }
-        
+
     }
 }

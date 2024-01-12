@@ -1,31 +1,36 @@
 @import '../../App.scss';
 
 .cards {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 30px;
 
-  
+
   .lpcards {
     width: 100%;
     height: max-content;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 30px;
     padding: 20px;
 
     @include mobile {
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       padding: 10px;
     }
 
+    @include tablet {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
+    }
   }
+
 
   .cardtitle {
     padding: 10px;
-    
+
     @include mobile {
       font-size: 25px;
       text-align: center;

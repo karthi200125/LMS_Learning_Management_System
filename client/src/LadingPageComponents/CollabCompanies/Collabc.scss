@@ -37,7 +37,7 @@
         padding: 20px 40px;
         display: flex;
         align-items: center;
-        justify-content: center;                
+        justify-content: center;
 
         div {
             display: flex;
@@ -55,6 +55,11 @@
                 width: 200px;
                 height: 100px;
                 object-fit: contain;
+
+                @include tablet {
+                    width: 100px;
+                    height: 100px;
+                }
             }
         }
 

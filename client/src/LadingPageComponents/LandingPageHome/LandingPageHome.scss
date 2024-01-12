@@ -18,18 +18,22 @@
         flex-direction: row;
         gap: 15px;
 
-        @include mobile{
+        @include mobile {
             gap: 5;
         }
 
-        
+
     }
 
-    .desc {        
+    .desc {
         width: 40%;
-        text-align: center;        
+        text-align: center;
 
-        @include mobile{
+        @include mobile {
+            width: 90%;
+        }
+
+        @include tablet {
             width: 90%;
         }
     }
