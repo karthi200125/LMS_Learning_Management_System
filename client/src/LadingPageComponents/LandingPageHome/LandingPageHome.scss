@@ -45,5 +45,6 @@
         background: linear-gradient(to bottom, #c151e9 50%, #26104d 50%);
         filter: blur(120px);
         bottom: 0;
+        z-index: -1;
     }
 }

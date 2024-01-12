@@ -18,9 +18,8 @@
     }
 
     &:hover {
-        background: #412b7f !important;
-        box-shadow: 0 0 70px #412b7f;
-        transition: background 0.5s, box-shadow 0.5s;
+        background: #412b7f !important;        
+        transition: background 0.5s, box-shadow 0.5s;        
 
         .btnicon {
             transform: translateX(5px);

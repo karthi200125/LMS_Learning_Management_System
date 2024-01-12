@@ -1,0 +1,47 @@
+.regform {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+    padding: 10px 20px;
+
+    h2 {
+        font-size: 15px;
+    }
+
+    .line {
+        height: 1px;
+        background-color: rgba(0, 0, 0, 0.2);
+        width: 50%;        
+    }
+
+    p {
+        font-size: 12px;
+        color: blue;
+        cursor: pointer;
+        width: 100%;
+        text-align: end;
+    }
+
+    .gg {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .route {
+        font-size: 12px;
+
+        span {
+            text-decoration: underline;
+            color: blue;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    }
+}
