@@ -1,0 +1,51 @@
+@import '../../App.scss';
+
+.categories {
+    width: 100%;
+    overflow-x: scroll;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    padding: 10px;
+    flex-direction: row;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include mobile {
+        gap: 10px;
+    }
+
+    .cat {
+        width: max-content;
+        padding: 10px;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+
+        &:hover,
+        .active {
+            background-color: #412b7f15;
+        }
+
+        @include mobile {
+            padding: 5px 10px;
+        }
+
+        img {
+            width: 20px;
+            height: 20px;
+            object-fit: cover;
+        }
+
+        span {
+            font-size: 15px;
+        }
+    }
+}

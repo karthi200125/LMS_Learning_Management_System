@@ -1,8 +1,11 @@
-import React from 'react'
+import Categories from '../../MainPageComponents/Categories/Categories'
+import './Home.scss'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className='home'>
+      <Categories />
+    </div>
   )
 }
 
