@@ -1,0 +1,14 @@
+@import '../../App.scss';
+
+.logo {
+    font-size: 25px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.6;
+    }
+
+    @include mobile {
+        font-size: 15px;
+    }
+}

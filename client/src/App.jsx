@@ -20,11 +20,11 @@ const App = () => {
   const Layout = ({ children }) => {
     return (
       <QueryClientProvider client={queryClient}>
-        <div>
+        <div className='homelayout'>
           <NavBar />
-          <div style={{ display: 'flex' }}>
+          <div className='sblayout'>
             <SideBar />
-            <div>
+            <div className='maincontent'>
               <Outlet />
             </div>
           </div>

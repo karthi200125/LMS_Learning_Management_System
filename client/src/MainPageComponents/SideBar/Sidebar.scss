@@ -1,0 +1,11 @@
+@import '../../App.scss';
+
+.sidebar {
+    width: 20%;
+    height: calc(100vh - 80px);
+    border-right: 1px solid black;
+
+    @include mobile {
+        display: none;
+    }
+}

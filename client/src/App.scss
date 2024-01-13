@@ -6,14 +6,28 @@
 
 body {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: linear-gradient(#040318, #040318);
 }
 
 li {
     list-style: none;
+}
+
+.homelayout {
+    background: white;
+    max-width: 1366px;
+    height: 100vh;
+
+
+
+    .sblayout {
+        display: flex;
+        width: 100%;
+
+        .maincontent {
+            width: 100%;
+        }
+    }
 }
 
 

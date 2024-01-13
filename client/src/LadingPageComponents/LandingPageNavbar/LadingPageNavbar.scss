@@ -17,15 +17,7 @@
     @include mobile {
         padding: 10px;
     }
-
-    .logo {
-        font-size: 25px;
-
-        @include mobile {
-            font-size: 15px;
-        }
-    }
-
+    
     .mid {
         display: flex;
         align-items: center;

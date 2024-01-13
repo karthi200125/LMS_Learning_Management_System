@@ -4,6 +4,7 @@ import Button from '../../MainPageComponents/Button/Button';
 import './LadingPageNavbar.scss';
 import RegisterModal from '../../MainPageComponents/Modal/RegisterModal/RegisterModal';
 import LoginModal from '../../MainPageComponents/Modal/LoginModal/LoginModal';
+import Logo from '../../MainPageComponents/Logo/Logo';
 
 const LandingPageNavbar = () => {
 
@@ -19,7 +20,7 @@ const LandingPageNavbar = () => {
 
   return (
     <div className='lpnavbar'>
-      <div className="logo">SkillSphere</div>
+      <Logo />
 
       <ul className="mid">
         <li>Courses</li>
