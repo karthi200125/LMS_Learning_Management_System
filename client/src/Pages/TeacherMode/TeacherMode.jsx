@@ -1,13 +1,14 @@
 import { CiCirclePlus } from "react-icons/ci";
-import { MdArrowRightAlt } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
 import { RiArrowUpDownLine } from "react-icons/ri";
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../MainPageComponents/Button/Button';
 import Search from '../../MainPageComponents/Search/Search';
 import './TeacherMode.scss';
-import { Link } from 'react-router-dom'
 
 const TeacherMode = () => {
 
+  const navigate = useNavigate()
   const lists = [
     {
       title: "first course",
@@ -21,11 +22,12 @@ const TeacherMode = () => {
     },
   ]
 
+
   return (
     <div className='teacher'>
       <div className="top">
         <Search />
-        <Button title="New Course" glow={false} icon={<CiCirclePlus size={25} />} />
+        <Button title="New Course" glow={false} icon={<CiCirclePlus size={25} />} onClick={() => navigate('/teachermode/create')} />
       </div>
 
       <div className="lists">
@@ -50,7 +52,7 @@ const TeacherMode = () => {
                 </td>
                 <td >
                   <Link className='editicon' to="/teachermode/create">
-                    <MdArrowRightAlt size={25} />
+                    <MdModeEdit size={25} />
                   </Link>
                 </td>
               </tr>
