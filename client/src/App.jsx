@@ -1,16 +1,18 @@
-import React from 'react';
-import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import './App.scss';
 import NavBar from './MainPageComponents/Navbar/Navbar';
 import SideBar from './MainPageComponents/SideBar/SideBar';
+import Course from './Pages/Course/Course';
 import Home from './Pages/Home/Home';
 import LandingPage from './Pages/LandingPage/LandingPage';
 import Profile from './Pages/Profile/Profile';
-import Course from './Pages/Course/Course';
 import TeacherMode from './Pages/TeacherMode/TeacherMode';
-import { Toaster } from 'sonner'
-import './App.scss'
-import { useSelector } from 'react-redux'
+import DashBoard from './Pages/DashBoard/DashBoard';
+import Create from './Pages/Create/Create';
 
 const App = () => {
 
@@ -18,6 +20,7 @@ const App = () => {
   const queryClient = new QueryClient();
 
   const Layout = ({ children }) => {
+
     return (
       <QueryClientProvider client={queryClient}>
         <div className='homelayout'>
@@ -58,8 +61,16 @@ const App = () => {
           element: <Course />
         },
         {
+          path: '/dashboard/:id',
+          element: <DashBoard />
+        },
+        {
           path: '/teachermode',
           element: <TeacherMode />
+        },
+        {
+          path: '/teachermode/create',
+          element: <Create />
         },
         {
           path: '/profile/:id',

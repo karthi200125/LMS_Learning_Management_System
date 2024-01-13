@@ -9,10 +9,14 @@
     justify-content: start;
     flex-direction: column;
     gap: 2px;
-    
-    
+
+
 
     @include mobile {
+        display: none;
+    }
+
+    @include tablet {
         display: none;
     }
 }

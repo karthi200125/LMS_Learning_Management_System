@@ -5,7 +5,7 @@ import { IoBookOutline } from "react-icons/io5";
 const Card = ({ card }) => {
     return (
         <div className='card'>
-            <img src="" alt="" />
+            <img src={card.img} alt="" />
             <div className='content'>
                 <h1>{card.title}</h1>
                 <p>{card.cat}</p>

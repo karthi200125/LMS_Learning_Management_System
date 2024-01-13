@@ -11,7 +11,15 @@
     color: inherit;
     text-decoration: none;
 
-    &:hover,
+    &:hover {
+        background-color: #412b7f15;
+
+        .itemicon,
+        span {
+            color: #8667fd;
+        }
+    }
+
     &.active {
         background-color: #412b7f15;
         border-right: 4px solid black;
