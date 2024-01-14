@@ -1,14 +1,12 @@
 @import '../../font.scss';
+@import '../../App.scss';
 
 .landingpage {
     // width: 100%;
     max-width: 1366px;
     margin: 0 auto;
     height: max-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    @include fc;
     gap: 30px;
     color: white;
     font-family: "Resist Sans Text Thin";

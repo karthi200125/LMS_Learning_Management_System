@@ -2,10 +2,7 @@
 
 
 .user {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
+    @include fr;
     gap: 15px;
 
     span {

@@ -6,12 +6,14 @@ import { useLocation } from 'react-router-dom';
 import { IoBarChart } from "react-icons/io5";
 import { PiPlayCircle } from "react-icons/pi";
 import { GoLock } from "react-icons/go";
+import { useSelector } from 'react-redux'
 
 const SideBar = () => {
 
   const location = useLocation()
   const pathname = location.pathname
   const coursePage = pathname.split(1)[0]
+  const { user } = useSelector(state => state.auth)
 
 
   const locakedTopics = [
@@ -24,7 +26,7 @@ const SideBar = () => {
     <div className='sidebar'>
       {coursePage !== '/course/' &&
         <>
-          <SidebarItem title="Dashboard" icon={<MdOutlineSpaceDashboard />} link="/dashboard/123" />
+          <SidebarItem title="Dashboard" icon={<MdOutlineSpaceDashboard />} link={`/dashboard/${user?._id}`} />
           <SidebarItem title="Browse" icon={<BsBrowserSafari />} link="/" />
         </>
       }

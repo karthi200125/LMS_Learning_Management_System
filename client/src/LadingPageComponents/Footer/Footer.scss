@@ -1,19 +1,14 @@
 @import '../../App.scss';
 
 .footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include fc;
     width: 100%;
     color: rgba(255, 255, 255, 0.5);
-    flex-direction: column;
     gap: 10px;
 
     .lists {
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        @include sb;
         flex-direction: row;
         padding: 0 40px;
 
@@ -52,9 +47,7 @@
     .copyright {
         border-top: 1px solid rgba(255, 255, 255, 0.2);
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        @include sb;
         padding: 40px 40px;
 
         @include mobile {
@@ -70,9 +63,7 @@
         }
 
         .icons {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include center;
             gap: 15px;
             cursor: pointer;
 

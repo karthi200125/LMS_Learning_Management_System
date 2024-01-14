@@ -3,19 +3,13 @@
 .lphome {
     width: 100%;
     height: calc(100vh - 80px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    @include fc;
     gap: 20px;
     margin-top: 80px;
     position: relative;
 
     .btm {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
+        @include fr;
         gap: 15px;
 
         @include mobile {

@@ -3,10 +3,7 @@
 .review {
     width: 100%;
     height: max-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    @include fc;
     gap: 30px;
     padding: 20px 40px;
 
@@ -18,9 +15,7 @@
     }
 
     .peoples {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        @include sb;
         flex-direction: row;
         margin-top: 30px;
 
@@ -32,10 +27,7 @@
         }
 
         .rev {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+            @include fc;
             gap: 20px;
             width: 25%;
             overflow: hidden;

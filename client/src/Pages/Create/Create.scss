@@ -1,12 +1,12 @@
+@import '../../App.scss';
+
 .create {
     width: 100%;
     height: max-content;
 
     .top {
         widows: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        @include sb;
         padding: 10px 20px;
 
         h1 {
@@ -28,10 +28,7 @@
         .right {
             flex: 1;
             height: max-content;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+            @include fc;
             gap: 10px;
 
             .box {
@@ -55,18 +52,13 @@
             .chapters {
                 width: 100%;
                 height: max-content;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
+                @include fc;
                 gap: 10px;
                 background-color: rgba(0, 0, 0, 0.05);
 
                 .top {
                     width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
+                    @include sb;
                     flex-direction: row;
                 }
 
@@ -74,10 +66,7 @@
                     width: 100%;
                     height: max-content;
                     padding: 10px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-direction: column;
+                    @include fc;
                     gap: 10px;
 
                     .chapterslist {

@@ -36,7 +36,7 @@ const LoginModal = ({ isOpen, onClose, RegOpen }) => {
             const res = await AxiosRequest.post('/auth/login', input);
             dispatch(login(res.data));
             navigate('/');
-            toast.success('Login successfully');
+            toast.success('Login successfully');            
         } catch (error) {
             toast.error(error?.response?.data?.message);
             setErr(error?.response?.data?.message);

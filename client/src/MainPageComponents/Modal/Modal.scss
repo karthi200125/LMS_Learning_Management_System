@@ -10,19 +10,15 @@
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include center;
     background-color: rgba(0, 0, 0, 0.4);
     color: black;
 
     .modal {
         width: 450px;
-        max-height: 80vh;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: space-between;
+        max-height: 80vh;      
+        @include sb;  
+        flex-direction: column;        
         background-color: white;
         border-radius: 10px;
         position: absolute;
@@ -39,12 +35,9 @@
 
         .top {
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include fc;
             position: relative;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-            flex-direction: column;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);            
             gap: 5px;
             padding: 10px;
 
@@ -64,9 +57,7 @@
                 top: 10px;
                 margin-right: 10px;
                 cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                @include center;
                 width: 30px;
                 height: 30px;
                 border-radius: 5px;

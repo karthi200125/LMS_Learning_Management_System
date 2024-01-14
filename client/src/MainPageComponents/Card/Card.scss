@@ -45,9 +45,7 @@
         }
 
         .chapter {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include center;
             gap: 10px;
 
             span {

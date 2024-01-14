@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import AuthRoute from './Routes/AuthRoute.js';
+import UserRoute from './Routes/UserRoutes.js';
+import ChapterRoute from './Routes/ChapterRoutes.js';
+import CourseRoute from './Routes/CourseRoutes.js';
 import { handleError } from './Utils/ErrorHandlingMidleware.js';
 import cookieParser from 'cookie-parser';
 
@@ -21,6 +24,10 @@ mongoose.connect(process.env.MONGO_DB)
 
 // Routes
 app.use("/api/auth", AuthRoute);
+app.use("/api/user", UserRoute);
+app.use("/api/chapter", ChapterRoute);
+app.use("/api/course", CourseRoute);
+
 
 // Error handling middleware should be the last middleware
 app.use(handleError);
