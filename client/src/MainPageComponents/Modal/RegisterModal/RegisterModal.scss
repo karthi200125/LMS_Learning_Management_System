@@ -10,13 +10,7 @@
 
     h2 {
         font-size: 15px;
-    }
-
-    .line {
-        height: 1px;
-        background-color: rgba(0, 0, 0, 0.2);
-        width: 50%;        
-    }
+    }    
 
     p {
         font-size: 12px;
@@ -38,10 +32,13 @@
         font-size: 12px;
 
         span {
-            text-decoration: underline;
             color: blue;
             margin-left: 10px;
             cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 }

@@ -13,6 +13,38 @@ li {
     list-style: none;
 }
 
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin sb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin fr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+@mixin fc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .homelayout {
     background: white;
     width: 100%;
@@ -33,6 +65,42 @@ li {
             padding: 10px;
             overflow: hidden !important;
         }
+    }
+}
+
+.showpassword {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    flex-direction: row;
+    width: 100%;
+
+    input {
+        cursor: pointer;
+    }
+
+}
+
+.line {
+    width: 60%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+
+    .or {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+
     }
 }
 

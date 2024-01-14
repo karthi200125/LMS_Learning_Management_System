@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 import './Card.scss';
 import { IoBookOutline } from "react-icons/io5";
 
 
 const Card = ({ card }) => {
     return (
-        <div className='card'>
+        <Link className='card' to={`/course/${card.id}`} state={card}>
             <img src={card.img} alt="" />
             <div className='content'>
                 <h1>{card.title}</h1>
@@ -17,7 +18,7 @@ const Card = ({ card }) => {
                     progress
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

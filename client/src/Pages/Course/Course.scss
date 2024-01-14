@@ -1,0 +1,58 @@
+.course {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    overflow-y: scroll;
+    background-color: black;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .video {
+        width: 100%;
+        height: 70vh;
+    }
+
+    .controls {
+        padding: 10px 20px;
+        width: 70%;
+        height: 50px;
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        gap: 10px;
+        background-color: black;
+        color: white;
+
+        .side {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: center;
+            gap: 10px;
+
+            .volume {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
+
+    }
+}
+
+.videoicon {
+    font-size: 25px;
+    color: white;
+}
