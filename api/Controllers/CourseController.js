@@ -1,10 +1,12 @@
 import CourseModel from '../Models/CourseModel.js';
+import User from '../Models/UserModel.js';
 import { createError } from '../Utils/CreateError.js'
 
 export const CourseCreate = async (req, res, next) => {
-    const { userId, title, description, imageUrl, isPublished, price, category, chapters } = req.body;
+    const { userId, title, price } = req.body;
     try {
-        const newCourse = await CourseModel.create({ userId, title, description, imageUrl, isPublished, category, chapters, price });
+        const newCourse = await CourseModel.create({ userId, title, price });
+        await User.findByIdAndUpdate(userId, { $push: { coursesEnrolled: newCourse._id } });
         res.status(201).json(newCourse);
     } catch (error) {
         next(createError(500, "Course creation failed"));
@@ -23,7 +25,7 @@ export const CourseDelete = async (req, res, next) => {
 }
 
 export const CourseUpdate = async (req, res, next) => {
-    const { courseId } = req.body;
+    const { courseId } = req.body;    
     try {
         const updatedCourse = await CourseModel.findByIdAndUpdate(courseId, { $set: req.body }, { new: true });
         res.status(200).json(updatedCourse);
@@ -32,7 +34,7 @@ export const CourseUpdate = async (req, res, next) => {
     }
 }
 
-export const getAllCourse = async (req, res, next) => {
+export const AllCourse = async (req, res, next) => {
     const { userId } = req.body;
     try {
         const allcourses = await CourseModel.find({ userId });

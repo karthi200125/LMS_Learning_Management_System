@@ -9,7 +9,7 @@ import SideBar from './MainPageComponents/SideBar/SideBar';
 import Course from './Pages/Course/Course';
 import Home from './Pages/Home/Home';
 import LandingPage from './Pages/LandingPage/LandingPage';
-import Profile from './Pages/Profile/Profile';
+import Profile from './Pages/Chapter/Chapter';
 import TeacherMode from './Pages/TeacherMode/TeacherMode';
 import DashBoard from './Pages/DashBoard/DashBoard';
 import Create from './Pages/Create/Create';
@@ -69,11 +69,11 @@ const App = () => {
           element: <TeacherMode />
         },
         {
-          path: '/teachermode/create',
+          path: '/teachermode/create/:id',
           element: <Create />
         },
         {
-          path: '/profile/:id',
+          path: '/teachermode/chaptercreate/:id',
           element: <Profile />
         }
       ]

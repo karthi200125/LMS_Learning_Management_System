@@ -11,6 +11,7 @@ import Input from '../../Input/Input';
 import Modal from '../Modal';
 import './LoginModal.scss';
 import googleLogin from '../../../Utils/GoogleLogin';
+import { createCourse } from '../../../Redux/CourseSlice';
 
 
 const LoginModal = ({ isOpen, onClose, RegOpen }) => {
@@ -34,9 +35,11 @@ const LoginModal = ({ isOpen, onClose, RegOpen }) => {
         try {
             setLoading(true);
             const res = await AxiosRequest.post('/auth/login', input);
-            dispatch(login(res.data));
+            dispatch(login(res?.data));
+            dispatch(createCourse(res?.data?.coursesEnrolled));
             navigate('/');
-            toast.success('Login successfully');            
+            console.log(res.data)
+            toast.success('Login successfully');
         } catch (error) {
             toast.error(error?.response?.data?.message);
             setErr(error?.response?.data?.message);

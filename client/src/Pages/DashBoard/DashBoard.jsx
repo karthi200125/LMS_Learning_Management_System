@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CiImageOn, CiEdit } from 'react-icons/ci';
 import noprofile from '../../assets/noProfile.png';
@@ -13,12 +13,14 @@ const DashBoard = () => {
     const [isLoading, setisLoading] = useState(false);
     const [border, setBorder] = useState(false);
     const [file, setFile] = useState('');
+    const [course, setCourse] = useState([]);
     const [profileImg, setProfileImg] = useState(user?.profileImg || '');
     const dispatch = useDispatch()
 
+    const token = localStorage.getItem('access_token');
+
     const handleUpdate = async (e) => {
-        e.preventDefault();
-        const token = localStorage.getItem('access_token');
+        e.preventDefault();        
         try {
             setisLoading(true)
             const res = await handleRequest({
@@ -37,9 +39,8 @@ const DashBoard = () => {
     };
 
     const handleFileChange = (e) => {
-
     };
-
+        
     return (
         <div className="dash">
             <form className="top" >

@@ -19,6 +19,15 @@ button {
     cursor: pointer;
 }
 
+
+@mixin overflowy {
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 @mixin center {
     display: flex;
     align-items: center;

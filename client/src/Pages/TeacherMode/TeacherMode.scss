@@ -67,3 +67,22 @@
         }
     }
 }
+
+.newcoursetitle {
+    width: 100%;
+    @include fc;
+    gap: 10px;
+}
+
+.del {
+    &:hover {
+        color: rgba(255, 0, 0, 0.753);
+        cursor: pointer;
+    }
+}
+
+.deletemodal {
+    width: 100%;
+    @include fc;
+    gap: 10px;
+}

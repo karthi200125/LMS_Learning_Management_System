@@ -1,10 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const parseJSON = (jsonString) => {
+  try {
+    return JSON.parse(jsonString);
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    return null;
+  }
+};
+
+const storedUser = localStorage.getItem('user');
+const initialState = {
+    user: parseJSON(storedUser) || null,
+};
+
 const AuthSlice = createSlice({
     name: 'auth',
-    initialState: {
-        user: JSON.parse(localStorage.getItem('user')) || null,
-    },
+    initialState,
     reducers: {
         login: (state, action) => {
             state.user = action.payload;

@@ -15,6 +15,8 @@ const ProfileCard = () => {
         toast.success("Logout successfully")
         navigate('/landingpage')
         dispatch(logout())
+        localStorage.removeItem('course')
+        localStorage.removeItem('access_token')
     }
 
     return (

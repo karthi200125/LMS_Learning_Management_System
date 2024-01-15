@@ -2,6 +2,8 @@ import { AxiosRequest } from './AxiosRequest';
 import { toast } from 'sonner';
 
 const handleRequest = async ({ url, token, data, method, userId, successmsg }) => {
+    // const token = localStorage.getItem("access_token")
+    // console.log({ url, token, data, method, userId, successmsg })
     try {
         const result = await AxiosRequest({
             url,
