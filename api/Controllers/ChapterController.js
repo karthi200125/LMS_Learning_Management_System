@@ -3,9 +3,9 @@ import CourseModel from "../Models/CourseModel.js";
 import { createError } from '../Utils/CreateError.js'
 
 export const ChapterCreate = async (req, res, next) => {
-    const { title, description, videoUrl, position, isPublished, isFree, courseId, userProgress } = req.body;
+    const { title, description, videoUrl, courseId } = req.body;
     try {
-        const newChapter = await ChapterModel.create({ title, description, videoUrl, position, isPublished, isFree, userProgress, courseId })
+        const newChapter = await ChapterModel.create({ title, description, videoUrl, courseId })
         await CourseModel.findByIdAndUpdate(courseId, { $push: { chapters: newChapter._id } }, { new: true });
         res.status(200).json(newChapter)
     } catch (error) {
@@ -13,7 +13,6 @@ export const ChapterCreate = async (req, res, next) => {
         next(createError(500, "chapter createion failed"))
     }
 }
-
 export const ChapterDelete = async (req, res, next) => {
     const { chapterId } = req.body;
     try {
@@ -43,4 +42,15 @@ export const getAllChapter = async (req, res, next) => {
     } catch (error) {
         next(createError(500, "get all chapters failed"));
     }
+}
+
+export const getSinlgeChapter = async (req, res, next) => {
+    const { chapterId } = req.body;
+    // console.log(req.body)
+    // try {
+    //     const getsiglechapter = await ChapterModel.findOne(chapterId)
+    //     res.status(200).json(getsiglechapter);
+    // } catch (error) {
+    //     next(createError(500, "get single chapters failed"));
+    // }
 }

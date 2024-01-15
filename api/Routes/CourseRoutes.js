@@ -4,7 +4,7 @@ import { AllCourse, CourseCreate, CourseDelete, CourseUpdate, getSingleCourse } 
 const router = express.Router();
 
 router.post("/getallcourses", AllCourse);
-router.get("/getcourse", getSingleCourse);
+router.post("/getcourse", getSingleCourse);
 router.post("/create", CourseCreate);
 router.delete("/delete", CourseDelete);
 router.put("/update", CourseUpdate);

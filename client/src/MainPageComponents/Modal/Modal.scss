@@ -16,13 +16,13 @@
 
     .modal {
         width: 450px;
-        max-height: 80vh;      
-        @include sb;  
-        flex-direction: column;        
+        max-height: 80vh;
+        @include sb;
+        flex-direction: column;
         background-color: white;
         border-radius: 10px;
         position: absolute;
-        transition: 0.5s ease-in-out;
+        transition: 0.5s ease-in-out;        
 
         @include mobile {
             width: 90%;
@@ -37,7 +37,7 @@
             width: 100%;
             @include fc;
             position: relative;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);            
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
             gap: 5px;
             padding: 10px;
 
@@ -79,7 +79,7 @@
             padding: 10px;
             flex-direction: column;
             gap: 10px;
-            overflow-y: scroll;            
+            overflow-y: scroll;
 
             &::-webkit-scrollbar {
                 display: none;

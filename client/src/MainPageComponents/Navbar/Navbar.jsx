@@ -15,6 +15,8 @@ const Navbar = () => {
   const navigate = useNavigate()
   const { user } = useSelector(state => state.auth)
 
+  // console.log(coursePage !== '/teachermode/chaptercreate')
+
   return (
     <div className='navbar'>
       <Logo />
@@ -22,12 +24,14 @@ const Navbar = () => {
         <Search />
       }
       <div className='navright'>
-        {pathname === "/teachermode" || pathname === "/teachermode/create" ?
+        {pathname === "/teachermode" || pathname === "/teachermode/create" ? 
           <Button title="Exit" icon={<MdArrowRightAlt szie={25} />} glow={false} classname="transparent" onClick={() => navigate('/')} color="black" />
           :
           <>
-            {coursePage !== '/course/' &&
+            {coursePage !== '/course/' || coursePage !== '/' || coursePage !== '/teachermode/chaptercreate' ?
               <Button title="Teacher Mode" glow={false} icon={<MdArrowRightAlt szie={25} />} classname="btn" onClick={() => navigate(user?.role === "student" ? '/teachermode' : "")} />
+              :
+              ""
             }
           </>
         }

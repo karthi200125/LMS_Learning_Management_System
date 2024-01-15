@@ -1,4 +1,6 @@
+import ChapterModel from '../Models/ChapterModel.js';
 import CourseModel from '../Models/CourseModel.js';
+import UserModel from '../Models/UserModel.js';
 import User from '../Models/UserModel.js';
 import { createError } from '../Utils/CreateError.js'
 
@@ -15,9 +17,11 @@ export const CourseCreate = async (req, res, next) => {
 
 
 export const CourseDelete = async (req, res, next) => {
-    const { courseId } = req.body;
+    const { courseId, userId } = req.body;
     try {
+        await ChapterModel.deleteMany({ courseId });
         await CourseModel.findByIdAndDelete(courseId);
+        await UserModel.findByIdAndUpdate(userId, { $pull: { coursesEnrolled: courseId } });
         res.status(200).json("Course deleted successfully");
     } catch (error) {
         next(createError(500, "Chapter delete failed"));
@@ -25,7 +29,7 @@ export const CourseDelete = async (req, res, next) => {
 }
 
 export const CourseUpdate = async (req, res, next) => {
-    const { courseId } = req.body;    
+    const { courseId } = req.body;
     try {
         const updatedCourse = await CourseModel.findByIdAndUpdate(courseId, { $set: req.body }, { new: true });
         res.status(200).json(updatedCourse);

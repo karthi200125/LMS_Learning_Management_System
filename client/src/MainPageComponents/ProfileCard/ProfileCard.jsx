@@ -17,6 +17,7 @@ const ProfileCard = () => {
         dispatch(logout())
         localStorage.removeItem('course')
         localStorage.removeItem('access_token')
+        localStorage.removeItem('courses')
     }
 
     return (

@@ -7,29 +7,29 @@ const useCustomFetch = ({ userId, url, data }) => {
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("access_token");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const res = await handleRequest({
-          url,
-          method: "POST",
-          data,
-          userId,
-          token,
-        });
-        setResult(res);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const res = await handleRequest({
+        url,
+        method: "POST",
+        data,
+        userId,
+        token,
+      });
+      setResult(res);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [userId, url, data, token]);
 
-  return { result, error, isLoading };
+  return { result, error, isLoading, fetchData };
 };
 
 export default useCustomFetch;
