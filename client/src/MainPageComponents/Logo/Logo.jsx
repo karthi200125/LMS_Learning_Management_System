@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import './Logo.scss'
+import { memo } from 'react'
 
 const Logo = () => {
 
@@ -12,4 +13,4 @@ const Logo = () => {
     )
 }
 
-export default Logo
+export default memo(Logo)

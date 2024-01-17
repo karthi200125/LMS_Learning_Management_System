@@ -27,15 +27,15 @@ export const ChapterDelete = async (req, res, next) => {
 export const ChapterUpdate = async (req, res, next) => {
     const { chapterId } = req.body;
     try {
-        const updatedChapter = await ChapterModel.findByIdAndUpdate(chapterId, { $set: req.body }, { new: true })
+        const updatedChapter = await ChapterModel.findByIdAndUpdate(chapterId, { $set: req.body }, { new: true });
         res.status(200).json(updatedChapter);
     } catch (error) {
         next(createError(500, "Chapter update failed"));
     }
-}
+};
 
 export const getAllChapter = async (req, res, next) => {
-    const { courseId } = req.body;
+    const { userId: courseId } = req.body;
     try {
         const getallchapters = await ChapterModel.find({ courseId })
         res.status(200).json(getallchapters);
@@ -44,13 +44,13 @@ export const getAllChapter = async (req, res, next) => {
     }
 }
 
-export const getSinlgeChapter = async (req, res, next) => {
+export const getSingleChapter = async (req, res, next) => {
     const { chapterId } = req.body;
-    // console.log(req.body)
-    // try {
-    //     const getsiglechapter = await ChapterModel.findOne(chapterId)
-    //     res.status(200).json(getsiglechapter);
-    // } catch (error) {
-    //     next(createError(500, "get single chapters failed"));
-    // }
-}
+    try {
+        const singleChapter = await ChapterModel.findById(chapterId);
+        res.status(200).json(singleChapter);
+    } catch (error) {
+        next(createError(500, "Get single chapter failed"));
+    }
+};
+

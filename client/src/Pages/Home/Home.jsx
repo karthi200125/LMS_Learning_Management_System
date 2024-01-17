@@ -1,62 +1,65 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import Button from '../../MainPageComponents/Button/Button';
 import Card from '../../MainPageComponents/Card/Card';
 import Categories from '../../MainPageComponents/Categories/Categories';
-import Button from '../../MainPageComponents/Button/Button';
-import java from '../../assets/java.jfif';
+import useCustomFetch from '../../Utils/CustomFetch';
 import './Home.scss';
 
 const Home = () => {
-  const cards = [
-    {
-      id: 1,
-      title: "one",
-      img: java,
-      cat: "engineering",
-      chapters: 10,
-    },
-    {
-      id: 2,
-      title: "two",
-      img: java,
-      cat: "engineering",
-      chapters: 10,
-    },
-    {
-      id: 3,
-      title: "three",
-      img: java,
-      cat: "engineering",
-      chapters: 10,
-    },
-    {
-      id: 4,
-      title: "three",
-      img: java,
-      cat: "engineering",
-      chapters: 10,
-    },
-  ];
-
   const [currentPage, setCurrentPage] = useState(1);
+  const { user } = useSelector(state => state.auth);
+  const location = useLocation();
+  const searchQuery = location.state;
+
+  const { result, isLoading, error, fetchData } = useCustomFetch({
+    url: `/course/getallcourses`,
+    id: user?._id
+  });
+
+  const filteredData = useMemo(() => {
+    if (searchQuery && typeof searchQuery === 'string' && Array.isArray(result)) {
+      const queryLowerCase = searchQuery.toLowerCase();
+
+      return result.filter((course) =>
+        course.title?.toLowerCase()?.includes(queryLowerCase) ||
+        course.description?.toLowerCase()?.includes(queryLowerCase) ||
+        course.category?.toLowerCase()?.includes(queryLowerCase)
+      );
+    } else {
+      return result;
+    }
+  }, [result, searchQuery]);
+
   const postsPerPage = 10;
-  const totalPosts = Math.ceil(cards.length / postsPerPage);
+  const totalPosts = Math.ceil(filteredData?.length / postsPerPage);
 
   const LastPost = currentPage * postsPerPage;
   const FirstPost = LastPost - postsPerPage;
-  const currentCards = cards.slice(FirstPost, LastPost);
+  const currentCards = useMemo(() => filteredData?.slice(FirstPost, LastPost), [filteredData, FirstPost, LastPost]);
 
-  const paginate = (pageNumber) => {
+  const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
-  };
+  }, []);
+
 
   return (
     <div className='home'>
       <Categories />
       <div className='cardcon'>
         <div className="cards">
-          {currentCards.map((card) => (
-            <Card key={card.id} card={card} />
-          ))}
+          {isLoading ? (
+            "loading"
+          ) : (
+            filteredData.length > 0 ? (
+              currentCards?.map((card) => (
+                <Card key={card?._id} card={card} />
+              ))
+            ) : (
+              <p>No search items found</p>
+            )
+          )}
         </div>
         <div className="pagination">
           <Button title="Prev" glow={false} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />

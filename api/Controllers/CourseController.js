@@ -39,7 +39,7 @@ export const CourseUpdate = async (req, res, next) => {
 }
 
 export const AllCourse = async (req, res, next) => {
-    const { userId } = req.body;
+    const { userId } = req.body;    
     try {
         const allcourses = await CourseModel.find({ userId });
         res.status(200).json(allcourses);

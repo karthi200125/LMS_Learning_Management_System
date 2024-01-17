@@ -1,18 +1,20 @@
+import { memo } from 'react';
+import { IoBookOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import './Card.scss';
-import { IoBookOutline } from "react-icons/io5";
 
 
 const Card = ({ card }) => {
+
     return (
-        <Link className='card' to={`/course/${card.id}`} state={card}>
-            <img src={card.img} alt="" />
+        <Link className='card' to={`/course/${card._id}`} state={card}>
+            <img src={card.imageUrl} alt="" />
             <div className='content'>
                 <h1>{card.title}</h1>
-                <p>{card.cat}</p>
+                <p className='carddesc'>{card.description}</p>
                 <div className='chapter'>
                     <IoBookOutline size={20} className="book" />
-                    <span>{card.chapters} Chapters</span>
+                    <span>{card?.chapters?.length} Chapters</span>
                 </div>
                 <div className="progress">
                     progress
@@ -22,4 +24,4 @@ const Card = ({ card }) => {
     )
 }
 
-export default Card
+export default memo(Card)

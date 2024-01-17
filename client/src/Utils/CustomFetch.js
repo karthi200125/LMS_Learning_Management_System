@@ -1,35 +1,44 @@
 import { useEffect, useState } from "react";
-import handleRequest from "./Handlerequest";
+import { AxiosRequest } from "./AxiosRequest";
+import { useSelector } from "react-redux";
 
-const useCustomFetch = ({ userId, url, data }) => {
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const token = localStorage.getItem("access_token");
+const useCustomFetch = ({ url, id }) => {
+
+  const [result, setResult] = useState([])
+  const [error, setError] = useState(false)
+  const [isLoading, setisLoading] = useState(false)
+  const { user } = useSelector(state => state.auth)
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setisLoading(true)
+        const res = await AxiosRequest.post(url, { userId: id })
+        setResult(res?.data)
+        // console.log(res?.data)
+      } catch (error) {
+        setError(error)
+      } finally {
+        setisLoading(false)
+      }
+    }
+    fetchData()
+  }, [url, id])
 
   const fetchData = async () => {
     try {
-      setIsLoading(true);
-      const res = await handleRequest({
-        url,
-        method: "POST",
-        data,
-        userId,
-        token,
-      });
-      setResult(res);
+      setisLoading(true)
+      const res = await AxiosRequest.post(url, { userId: id })
+      setResult(res?.data)
     } catch (error) {
-      setError(error);
+      setError(error)
     } finally {
-      setIsLoading(false);
+      setisLoading(false)
     }
-  };
+  }
 
-  useEffect(() => {
-    fetchData();
-  }, [userId, url, data, token]);
 
-  return { result, error, isLoading, fetchData };
-};
+  return { result, error, isLoading, fetchData }
+}
 
 export default useCustomFetch;

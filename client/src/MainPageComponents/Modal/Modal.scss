@@ -13,6 +13,7 @@
     @include center;
     background-color: rgba(0, 0, 0, 0.4);
     color: black;
+    z-index: 999;
 
     .modal {
         width: 450px;
@@ -22,7 +23,7 @@
         background-color: white;
         border-radius: 10px;
         position: absolute;
-        transition: 0.5s ease-in-out;        
+        transition: 0.5s ease-in-out;
 
         @include mobile {
             width: 90%;
@@ -43,7 +44,7 @@
 
             h1 {
                 text-transform: capitalize;
-                font-size: 25px;
+                font-size: 25px;                
             }
 
             p {

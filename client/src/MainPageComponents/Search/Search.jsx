@@ -5,11 +5,12 @@ import Button from '../../MainPageComponents/Button/Button';
 import Modal from '../../MainPageComponents/Modal/Modal';
 import Input from '../Input/Input';
 import './Search.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
     const [isModalOpen, setModalOpen] = useState(false);
-    const [searchInput, setSearchInput] = useState({ search: '' });
-    const [isLoading, setIsLoading] = useState(false);
+    const [searchInput, setSearchInput] = useState('');
+    const navigate = useNavigate()
 
     const openModal = () => {
         setModalOpen(true);
@@ -21,15 +22,9 @@ const Search = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        try {
-            setIsLoading(true);
-            console.log(searchInput);
-            setModalOpen(false);
-        } catch (error) {
-            console.log(error?.response?.data?.message);
-        } finally {
-            setIsLoading(false);
-        }
+        navigate('/', { state: searchInput?.search })
+        setModalOpen(false);
+        setSearchInput('')
     };
 
     const handleChange = (name, value) => {
@@ -39,7 +34,7 @@ const Search = () => {
     const bodyContent = (
         <form className='searchbody'>
             <Input name='search' type='text' value={searchInput.search} onChange={handleChange} />
-            <Button title='Search' glow={false} icon={<MdArrowRightAlt size={25} />} onClick={onSubmit} isLoading={isLoading} />
+            <Button title='Search' glow={false} icon={<MdArrowRightAlt size={25} />} onClick={onSubmit} />
         </form>
     );
 

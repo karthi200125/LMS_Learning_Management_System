@@ -13,8 +13,6 @@ const Course = () => {
   const location = useLocation();
   const data = location.state;
   let banner = false
-  console.log(data)
-
 
   return (
     <div className='chapter'>
