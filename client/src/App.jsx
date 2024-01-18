@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import './App.scss';
-import NavBar from './MainPageComponents/Navbar/Navbar';
-import SideBar from './MainPageComponents/SideBar/SideBar';
-import Chapter from './Pages/Chapter/Chapter';
-import Course from './Pages/Course/Course';
-import Create from './Pages/Create/Create';
-import DashBoard from './Pages/DashBoard/DashBoard';
-import Home from './Pages/Home/Home';
-import LandingPage from './Pages/LandingPage/LandingPage';
-import TeacherMode from './Pages/TeacherMode/TeacherMode';
-
+const NavBar = lazy(() => import('./MainPageComponents/Navbar/Navbar'))
+const SideBar = lazy(() => import('./MainPageComponents/SideBar/SideBar'))
+const Chapter = lazy(() => import('./Pages/Chapter/Chapter'))
+const Course = lazy(() => import('./Pages/Course/Course'))
+const Create = lazy(() => import('./Pages/Create/Create'))
+const DashBoard = lazy(() => import('./Pages/DashBoard/DashBoard'))
+const Home = lazy(() => import('./Pages/Home/Home'))
+const LandingPage = lazy(() => import('./Pages/LandingPage/LandingPage'))
+const TeacherMode = lazy(() => import('./Pages/TeacherMode/TeacherMode'))
 
 const App = () => {
 
@@ -53,33 +52,33 @@ const App = () => {
       children: [
         {
           path: '/',
-          element: <Home />
+          element: <Suspense ><Home /></Suspense>
         },
         {
           path: '/course/:id',
-          element: <Course />
+          element: <Suspense > <Course /></Suspense>
         },
         {
           path: '/dashboard/:id',
-          element: <DashBoard />
+          element: <Suspense> <DashBoard /></Suspense>
         },
         {
           path: '/teachermode',
-          element: <TeacherMode />
+          element: <Suspense> <TeacherMode /></Suspense>
         },
         {
           path: '/teachermode/create/:id',
-          element: <Create />
+          element: <Suspense><Create /></Suspense>
         },
         {
           path: '/teachermode/chaptercreate/:id',
-          element: <Chapter />
+          element: <Suspense><Chapter /></Suspense>
         }
       ]
     },
     {
       path: '/landingpage',
-      element: <LandingPage />
+      element: <Suspense> <LandingPage /></Suspense>
     }
   ]);
 

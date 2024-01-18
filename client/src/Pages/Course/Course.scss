@@ -7,13 +7,14 @@
     @include fc;
     @include overflowy;
     gap: 10px;
-    position: relative;
+    position: relative;    
 
     .video {
-        width: max-content;
+        min-width: 1000px;
         height: 500px;
         background-color: black;
         @include center;
+        margin-top: 30px;
 
         .videolock {
             @include fc;

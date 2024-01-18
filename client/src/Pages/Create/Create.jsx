@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CiCirclePlus } from 'react-icons/ci';
+import { CiCirclePlus, CiSquarePlus } from 'react-icons/ci';
 import { FaBarsProgress } from "react-icons/fa6";
 import { MdArrowRightAlt, MdDelete, MdOutlineEdit } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,9 @@ import Input from '../../MainPageComponents/Input/Input';
 import { createCourse } from '../../Redux/CourseSlice';
 import useCustomFetch from '../../Utils/CustomFetch';
 import handleRequest from '../../Utils/Handlerequest';
+import { ImageUplaod } from '../../Utils/UploadImage';
 import './Create.scss';
-import UploadWidget from '../../Utils/UploadWidgets';
+import noimage from '../../assets/noimage.png'
 
 const Create = () => {
   const navigate = useNavigate();
@@ -19,18 +20,16 @@ const Create = () => {
   const { user } = useSelector((state) => state.auth);
   const params = useParams();
   const [delopen, setdelopen] = useState(false);
-
-  const [image, setImage] = useState(
-    'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=600'
-  );
-
+  const [image, setImage] = useState('');
   const [course, setCourse] = useState({});
   const [isLoading, setisLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const token = localStorage.getItem('access_token');
 
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
-    imageUrl: image,
+    imageUrl: '',
     price: '',
     category: '',
     courseId: '',
@@ -40,14 +39,12 @@ const Create = () => {
     setInputs({
       title: course.title || '',
       description: course.description || '',
-      imageUrl: image,
+      imageUrl: course.imageUrl || imageUrl,
       price: course.price || '',
       category: course.category || '',
       courseId: course._id || '',
     });
-  }, [course, image]);
-
-  const token = localStorage.getItem('access_token');
+  }, [course, imageUrl]);
 
   useEffect(() => {
     const handleGetSingleCourse = async () => {
@@ -61,7 +58,7 @@ const Create = () => {
         });
         setCourse(res);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     handleGetSingleCourse();
@@ -91,10 +88,10 @@ const Create = () => {
     }
   };
 
-  const { result, error, fetchData } = useCustomFetch({
+  const { result, fetchData } = useCustomFetch({
     userId: user?._id,
     url: '/chapter/getall',
-    id: params?.id
+    id: params?.id,
   });
 
   useEffect(() => {
@@ -102,16 +99,24 @@ const Create = () => {
   }, [fetchData]);
 
   const options = [
-    { id: 1, title: "engineering" },
-    { id: 2, title: "technology" },
-    { id: 3, title: "computerscience" },
-    { id: 4, title: "accounting" },
-    { id: 5, title: "film" },
-    { id: 6, title: "music" },
+    { id: 1, title: "category" },
+    { id: 2, title: "engineering" },
+    { id: 3, title: "technology" },
+    { id: 4, title: "computerscience" },
+    { id: 5, title: "accounting" },
+    { id: 6, title: "film" },
+    { id: 7, title: "music" },
   ];
 
-  const handleImageChange = (newImage) => {
-    setImage(newImage);
+  const imagesubmit = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => setImage(e.target.result);
+      reader.readAsDataURL(file);
+    }
+    const url = await ImageUplaod(file)
+    setImageUrl(url)
   };
 
   return (
@@ -122,7 +127,7 @@ const Create = () => {
           title="Publish"
           glow={false}
           className="transparent"
-          color="black"
+          color="white"
           icon={<MdArrowRightAlt size={25} />}
           onClick={onSubmit}
           isLoading={isLoading}
@@ -138,19 +143,21 @@ const Create = () => {
             <Input name="description" value={inputs.description} onChange={handleChange} />
           </div>
           <div className="box courseimage">
-            <UploadWidget onImageChange={handleImageChange}>
-              {({ open }) => (
-                <button onClick={(e) => { e.preventDefault(); open(); }}>
-                  Upload an Image
-                </button>
-              )}
-            </UploadWidget>
-            <img src={image} alt="Java Image" />
+            <input type="file" onChange={imagesubmit} id="uploadimage" />
+            <label htmlFor="uploadimage" className="upload">
+              <span>Select Image</span>
+              <CiSquarePlus />
+            </label>
+            {inputs.imageUrl || imageUrl ? (
+              <img src={inputs.imageUrl || imageUrl} alt={inputs.title} />
+            ) : (
+              <img className='noimage' src={noimage} alt={inputs.title} />
+            )}
+
           </div>
         </div>
 
         <div className="right">
-
           <div className="box chapters">
             <div className="top">
               <span>Course Chapters</span>
@@ -160,8 +167,8 @@ const Create = () => {
               </Link>
             </div>
             <div className='chapterslists'>
-              {result?.lenght < 0 ? "" :
-                result?.map((cl) => (
+              {result?.length > 0 ?
+                result.map((cl) => (
                   <div key={cl.title} className='chapterslist'>
                     <div className='side'>
                       <FaBarsProgress size={25} />
@@ -175,7 +182,10 @@ const Create = () => {
                       <MdDelete size={25} className="del" onClick={() => setdelopen(true)} />
                     </div>
                   </div>
-                ))}
+                ))
+                :
+                "Create New Chapters"
+              }
             </div>
           </div>
 
@@ -184,7 +194,7 @@ const Create = () => {
           </div>
           <div className="box">
             <select name="category" onChange={(e) => handleChange('category', e.target.value)} required>
-              {options?.map((option) => (
+              {options.map((option) => (
                 <option className='selectoption' value={inputs.category} key={option.id}>{option.title}</option>
               ))}
             </select>

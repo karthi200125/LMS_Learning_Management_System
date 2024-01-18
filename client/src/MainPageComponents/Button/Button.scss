@@ -1,25 +1,23 @@
 @import '../../App.scss';
 
-.btn {
+.btn,
+.transparent,
+.search {
     width: max-content;
     padding: 10px 20px;
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
     gap: 5px;
     font-size: 15px;
     cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: linear-gradient(#412b7f, #1d113f);
 
     @include mobile {
         padding: 10px;
     }
 
     &:hover {
-        background: #412b7f !important;        
-        transition: background 0.5s, box-shadow 0.5s;        
 
         .btnicon {
             transform: translateX(5px);
@@ -35,26 +33,12 @@
     }
 }
 
-.transparent {
-    width: max-content;
-    padding: 10px 20px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;    
-    gap: 5px;
-    font-size: 15px;
-    cursor: pointer;
-    border: none;
-    background-color: transparent !important;
-
-    @include mobile {
-        padding: 10px;
-    }
+.btn {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(#412b7f, #1d113f);
 
     &:hover {
-        background-color: rgba(255, 255, 255, 0.2) !important;
-        transition: 0.5s ease;
+        background: linear-gradient(#412b7f, #9813aa);
 
         .btnicon {
             transform: translateX(5px);
@@ -62,11 +46,29 @@
         }
     }
 
-    .btnicon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.5s;
-    }
+}
 
+.transparent {
+    border: none;
+    background-color: transparent;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: 0.5s ease;
+    }
+}
+
+.searchbtn {
+    @include sb;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 8px 15px;
+    gap: 20px;
+
+    &:hover {        
+        border: none;
+        transition: 0.5s ease;        
+        box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.2);
+    }
 }

@@ -19,6 +19,15 @@ button {
     cursor: pointer;
 }
 
+@mixin skeletonNaimation {
+    animation: skeleton 1s ease infinite alternate;
+}
+
+@keyframes skeleton {
+    to {
+        opacity: 0.5;
+    }
+}
 
 @mixin overflowy {
     overflow-y: scroll;

@@ -40,12 +40,31 @@
                 border-radius: 10px;
                 padding: 10px;
                 border: 1px solid rgba(0, 0, 0, 0.3);
+                @include sb;
+                flex-direction: column;
+                gap: 10px;
 
                 img {
                     width: 100%;
                     height: 80%;
                     object-fit: cover;
                     border-radius: 10px;
+                }
+
+                .noimage {
+                    object-fit: contain !important;
+                }
+
+                .upload {
+                    width: 100%;
+                    @include center;
+                    flex-direction: row;
+                    cursor: pointer;
+                    gap: 10px;
+                }
+
+                #uploadimage {
+                    display: none;
                 }
             }
 

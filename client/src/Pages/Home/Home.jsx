@@ -6,6 +6,7 @@ import Card from '../../MainPageComponents/Card/Card';
 import Categories from '../../MainPageComponents/Categories/Categories';
 import useCustomFetch from '../../Utils/CustomFetch';
 import './Home.scss';
+import Skeleton from '../../MainPageComponents/Skeleton/Skeleton';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,9 +51,9 @@ const Home = () => {
       <div className='cardcon'>
         <div className="cards">
           {isLoading ? (
-            "loading"
+            <Skeleton type="card" count={filteredData?.length}/>
           ) : (
-            filteredData.length > 0 ? (
+            filteredData?.length > 0 ? (
               currentCards?.map((card) => (
                 <Card key={card?._id} card={card} />
               ))
@@ -61,13 +62,15 @@ const Home = () => {
             )
           )}
         </div>
-        <div className="pagination">
-          <Button title="Prev" glow={false} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
-          {Array.from({ length: totalPosts }, (_, page) => (
-            <Button key={page + 1} title={String(page + 1)} glow={false} onClick={() => paginate(page + 1)} active={currentPage === page + 1} />
-          ))}
-          <Button title="Next" glow={false} onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPosts} />
-        </div>
+        {totalPosts?.length >= 10 &&
+          <div className="pagination">
+            <Button title="Prev" glow={false} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
+            {Array.from({ length: totalPosts }, (_, page) => (
+              <Button key={page + 1} title={String(page + 1)} glow={false} onClick={() => paginate(page + 1)} active={currentPage === page + 1} />
+            ))}
+            <Button title="Next" glow={false} onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPosts} />
+          </div>
+        }
       </div>
     </div>
   );

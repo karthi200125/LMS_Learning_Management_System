@@ -40,7 +40,7 @@ const Search = () => {
 
     return (
         <div className='search'>
-            <Button title="Search your courses" glow={false} classname="transparent" color="black" icon={<CiSearch size={25} />} onClick={openModal} />
+            <Button title="Search your courses" glow={false} classname="searchbtn" color="black" icon={<CiSearch size={25} />} onClick={openModal} />
             <Modal isOpen={isModalOpen} onClose={closeModal} title='Search Courses' subTitle='Search all courses you want to start' bodyContent={bodyContent} />
         </div>
     );

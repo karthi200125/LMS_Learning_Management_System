@@ -37,8 +37,7 @@ const LoginModal = ({ isOpen, onClose, RegOpen }) => {
             const res = await AxiosRequest.post('/auth/login', input);
             dispatch(login(res?.data));
             dispatch(createCourse(res?.data?.coursesEnrolled));
-            navigate('/');
-            console.log(res.data)
+            navigate('/');            
             toast.success('Login successfully');
         } catch (error) {
             toast.error(error?.response?.data?.message);

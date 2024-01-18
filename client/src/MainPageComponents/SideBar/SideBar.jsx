@@ -17,27 +17,12 @@ const SideBar = () => {
   const pathname = location.pathname
   const { user } = useSelector(state => state.auth)
   const params = useParams()
-  const [result, setresult] = useState([[]])
 
-
-  const locakedTopics = [
-    { topic: "first", id: 1 },
-    { topic: "second", id: 2 },
-    { topic: "third", id: 3 },
-  ]
-
-  useEffect(() => {
-    const getChapters = async () => {
-      try {
-        const res = await AxiosRequest.post('/chapter/getall', { courseId: params.id })
-        setresult(res.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getChapters()
-  }, [params, user])
-
+  const { result, fetchData } = useCustomFetch({
+    userId: user?._id,
+    url: '/chapter/getall',
+    id: params.id,
+  });
 
 
   return (
@@ -57,7 +42,7 @@ const SideBar = () => {
       {pathname === `/course/${params.id}` &&
         <>
           {result?.map((chapter) => (
-            <SidebarItem title={chapter.title} icon={<GoLock />} link={`/course/${params.id}?chapterId:${chapter._id}`} key={chapter.title} />
+            <SidebarItem title={chapter.title} link={`/course/${params.id}?chapterId=${chapter._id}`} key={chapter._id} isFree={chapter.isFree} id={chapter._id} />
           ))}
         </>
       }

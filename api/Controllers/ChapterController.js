@@ -3,9 +3,9 @@ import CourseModel from "../Models/CourseModel.js";
 import { createError } from '../Utils/CreateError.js'
 
 export const ChapterCreate = async (req, res, next) => {
-    const { title, description, videoUrl, courseId } = req.body;
+    const { title, description, videoUrl, courseId, isFree } = req.body;
     try {
-        const newChapter = await ChapterModel.create({ title, description, videoUrl, courseId })
+        const newChapter = await ChapterModel.create({ title, description, videoUrl, courseId, isFree })
         await CourseModel.findByIdAndUpdate(courseId, { $push: { chapters: newChapter._id } }, { new: true });
         res.status(200).json(newChapter)
     } catch (error) {
@@ -26,6 +26,7 @@ export const ChapterDelete = async (req, res, next) => {
 
 export const ChapterUpdate = async (req, res, next) => {
     const { chapterId } = req.body;
+    // console.log(req.body)
     try {
         const updatedChapter = await ChapterModel.findByIdAndUpdate(chapterId, { $set: req.body }, { new: true });
         res.status(200).json(updatedChapter);
@@ -45,7 +46,7 @@ export const getAllChapter = async (req, res, next) => {
 }
 
 export const getSingleChapter = async (req, res, next) => {
-    const { chapterId } = req.body;
+    const { userId: chapterId } = req.body;
     try {
         const singleChapter = await ChapterModel.findById(chapterId);
         res.status(200).json(singleChapter);

@@ -1,4 +1,4 @@
-.loader {
+.spin {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -9,9 +9,10 @@
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
     margin-right: 10px;
-  }
-  .loader::after,
-  .loader::before {
+}
+
+.spin::after,
+  .spin::before {
     content: '';  
     box-sizing: border-box;
     position: absolute;
@@ -29,13 +30,14 @@
     animation: rotationBack 0.5s linear infinite;
     transform-origin: center center;
   }
-  .loader::before {
+
+  .spin::before {
     width: 20px;
     height: 20px;
     border-color: #FFF #FFF transparent transparent;
     animation: rotation 1.5s linear infinite;
   }
-      
+
   @keyframes rotation {
     0% {
       transform: rotate(0deg);
@@ -52,4 +54,3 @@
       transform: rotate(-360deg);
     }
   }
-      

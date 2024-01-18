@@ -17,7 +17,7 @@ export const CourseCreate = async (req, res, next) => {
 
 
 export const CourseDelete = async (req, res, next) => {
-    const { courseId, userId } = req.body;
+    const { courseId, userId } = req.body;    
     try {
         await ChapterModel.deleteMany({ courseId });
         await CourseModel.findByIdAndDelete(courseId);
@@ -39,7 +39,7 @@ export const CourseUpdate = async (req, res, next) => {
 }
 
 export const AllCourse = async (req, res, next) => {
-    const { userId } = req.body;    
+    const { userId } = req.body;
     try {
         const allcourses = await CourseModel.find({ userId });
         res.status(200).json(allcourses);

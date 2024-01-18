@@ -17,7 +17,7 @@
             font-size: 25px;
         }
 
-        Button{
+        Button {
             width: 250px;
         }
     }
@@ -28,9 +28,24 @@
         gap: 10px;
     }
 
-    .vidoncon {
+    .videoncon {
         width: 100%;
-        height: 300px;
-        background-color: black;
+        height: 200px;
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        flex-direction: row;
+        gap: 20px;
+        margin-top: 20px;
+
+        .chapterselect {
+            width: 100%;
+            padding: 15px;            
+            border-radius: 5px;            
+        }
+
+        .videouplaod {
+            width: 100%;            
+        }
     }
 }

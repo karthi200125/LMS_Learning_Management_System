@@ -1,14 +1,18 @@
+import { PiPlayCircle } from 'react-icons/pi'
 import './SidebarItem.scss'
 import { Link, useLocation } from 'react-router-dom'
+import { GoLock } from 'react-icons/go'
 
-const SidebarItem = ({ icon, title, link }) => {
+const SidebarItem = ({ icon, title, link, id , isFree }) => {
 
     const location = useLocation()
     const pathname = location.pathname
-    
+    const url = new URL(window.location.href);
+    const chapterId = url.searchParams.get("chapterId");
+
     return (
-        <Link to={`${link}`} className={`sidebaritem ${pathname === link ? "active" : ""}`} >
-            <div className='itemicon'>{icon}</div>
+        <Link to={`${link}`} className={`sidebaritem ${pathname === link || chapterId === id ? "active" : ""}`} >
+            <div className='itemicon'> {isFree === true ? <PiPlayCircle /> : <GoLock />}</div>
             <span>{title}</span>
         </Link>
     )

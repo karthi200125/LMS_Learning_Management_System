@@ -2,14 +2,13 @@ import { useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { MdArrowRightAlt, MdDelete, MdModeEdit } from "react-icons/md";
 import { RiArrowUpDownLine } from "react-icons/ri";
-import Skeleton from 'react-loading-skeleton';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
 import Button from '../../MainPageComponents/Button/Button';
 import Input from "../../MainPageComponents/Input/Input";
 import Modal from "../../MainPageComponents/Modal/Modal";
-import Search from '../../MainPageComponents/Search/Search';
+import Skeleton from "../../MainPageComponents/Skeleton/Skeleton";
 import { deleteCourse } from "../../Redux/CourseSlice";
 import useCustomFetch from "../../Utils/CustomFetch";
 import handleRequest from "../../Utils/Handlerequest";
@@ -31,10 +30,14 @@ const TeacherMode = () => {
   const token = localStorage.getItem('access_token');
   const navigate = useNavigate()
 
-  const { result, error, isLoading, refetch } = useCustomFetch({
+  const { result, error, isLoading, fetchData } = useCustomFetch({
     url: '/course/getallcourses',
     id: user?._id
   });
+
+  // useEffect(() => {
+  //   fetchData()
+  // }, [fetchData])
 
 
   const handleChange = (name, value) => {
@@ -115,12 +118,9 @@ const TeacherMode = () => {
     </form>
   )
 
-
-
   return (
     <div className='teacher'>
-      <div className="top">
-        <Search />
+      <div className="top">        
         <Button
           title="New Course"
           glow={false}
@@ -188,7 +188,6 @@ const TeacherMode = () => {
                 ))
               )
             )}
-
           </tbody>
         </table>
       </div>
