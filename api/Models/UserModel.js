@@ -18,8 +18,7 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        minlength: 6,
-        // required: true
+        minlength: 6,        
     },
     googleid: {
         type: String

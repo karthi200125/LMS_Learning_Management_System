@@ -16,7 +16,7 @@ const Home = () => {
 
   const { result, isLoading, error, fetchData } = useCustomFetch({
     url: `/course/getallcourses`,
-    id: user?._id
+    // id: user?._id
   });
 
   const filteredData = useMemo(() => {
@@ -42,15 +42,16 @@ const Home = () => {
 
   const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
-  }, []);
-  
+  }, [setCurrentPage]);
+
+
   return (
     <div className='home'>
       <Categories />
       <div className='cardcon'>
         <div className="cards">
           {isLoading ? (
-            <Skeleton type="card" count={filteredData?.length}/>
+            <Skeleton type="card" count={filteredData?.length} />
           ) : (
             filteredData?.length > 0 ? (
               currentCards?.map((card) => (

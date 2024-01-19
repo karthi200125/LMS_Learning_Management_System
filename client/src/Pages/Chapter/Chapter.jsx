@@ -9,45 +9,40 @@ import { useSelector } from 'react-redux';
 import useCustomFetch from '../../Utils/CustomFetch';
 import { toast } from 'sonner';
 import ReactPlayer from 'react-player';
-import { CiCirclePlus } from 'react-icons/ci';
-import { ImageUplaod } from '../../Utils/UploadImage';
 
 const Chapter = () => {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
   const editId = location.state;
-
-  // https://player.vimeo.com/external/320304435.sd.mp4?s=5bf3fe3cad5891fd216a8dc26af46b3a7f4f4215&profile_id=164&oauth2_token_id=57447761
-  const [video, setVideo] = useState('');
-  const [chapter, setChapter] = useState({});
-  const [getChapterId, setGetChapterId] = useState('');
+  const [openUrl, setOpenUrl] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [free, setfree] = useState(false);
-  const [videoUrl, setvideoUrl] = useState('');
+  const [free, setFree] = useState(false);
+  const [videoUrl, setVideoUrl] = useState('https://youtu.be/gizihSJ63o4?si=uQcYK_JY-dPg0Vz5');
+  const [inputUrl, setInputUrl] = useState('');
 
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
     isFree: false,
     courseId: editId ? editId : params?.id,
-    videoUrl: video,
+    videoUrl: videoUrl,
   });
 
   const { result } = useCustomFetch({
     url: '/chapter/getchapter',
     id: editId
-  })
+  });
 
   useEffect(() => {
     setInputs({
       title: result?.title || '',
       description: result?.description || '',
       isFree: free,
-      videoUrl: video,
+      videoUrl: videoUrl,
       courseId: editId ? editId : params?.id,
     });
-  }, [result, video, params?.id, free]);
+  }, [result, params?.id, free, videoUrl, editId]);
 
   const token = localStorage.getItem('access_token');
   const { user } = useSelector((state) => state.auth);
@@ -55,19 +50,11 @@ const Chapter = () => {
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
-  const requestData = {
-    chapterId: editId,
-    title: inputs.title,
-    isFree: free,
-    description: inputs.description,
-    videoUrl: inputs.videoUrl,
-  }
 
   const handleChapterCreate = async (e) => {
     e.preventDefault();
     if (!inputs.title || !inputs.description || !inputs.videoUrl) {
-      toast.error("All fields are required. Please fill out all the fields.");
-      // setIsLoading(false)
+      toast.error("All fields are required. Please fill out all the fields.");      
     }
 
     try {
@@ -82,7 +69,7 @@ const Chapter = () => {
         userId: user?._id,
         successmsg: successMsg,
       });
-      setGetChapterId(res?._id);
+      setVideoUrl(res?.videoUrl);
       navigate(`/teachermode/create/${params?.id}`);
     } catch (error) {
       console.error(error);
@@ -91,18 +78,14 @@ const Chapter = () => {
     }
   };
 
-  // const videoSubmit = async (e) => {
-  //   const file = e.target.files[0];    
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onload = (e) => setVideo(e.target.result);
-  //     const url = await ImageUplaod(file, mediaType)
-  //     setvideoUrl(url);
-  //   }
-  // };
+  const handleUploadUrl = (e) => {
+    e.preventDefault();
+    setVideoUrl(inputUrl);
+    setOpenUrl(false);
+  };
 
   return (
-    <form className='chapter'>
+    <div className='chapter'>
       <div className='top'>
         <h1>{editId ? "Edit your chapter" : "Create your chapter"}</h1>
         <Button
@@ -118,7 +101,7 @@ const Chapter = () => {
         <Input name='description' value={inputs.description} onChange={handleChange} />
       </div>
       <div className='videoncon'>
-        <select className="chapterselect" onChange={(e) => setfree(e.target.value)} name='isFree'>
+        <select className="chapterselect" onChange={(e) => setFree(e.target.value)} name='isFree'>
           <option value={false}>select chapter free or not</option>
           <option value={true}>true</option>
           <option value={false}>false</option>
@@ -126,18 +109,38 @@ const Chapter = () => {
         <div className="videouplaod">
           <div className="top">
             <h1>chapter Video</h1>
-            <input type="file" style={{ display: 'none' }} id="lableidvideo" onChange={videoSubmit} />
-            <label htmlFor="lableidvideo">
-              <span>Uplaod video</span>
-              <CiCirclePlus />
-            </label>
+            <div className="uploadurl">
+              {!openUrl ? (
+                <span onClick={() => setOpenUrl(true)}>Upload Video Url</span>
+              ) : (
+                <form className='inputvideourl' onSubmit={handleUploadUrl}>
+                  <input
+                    type="text"
+                    placeholder='Put Url Here'
+                    value={inputUrl}
+                    onChange={(e) => setInputUrl(e.target.value)}
+                  />
+                  <Button title="Upload" type="submit" />
+                </form>
+              )}
+            </div>
           </div>
           <div className="videos">
-            <ReactPlayer url={inputs.videoUrl} height="100%" width="100%" controls={true} light={true} playing={true} className="vidoeplayer" />
+            {videoUrl && (
+              <ReactPlayer
+                url={inputs.videoUrl || videoUrl}
+                height="100%"
+                width="100%"
+                controls={true}
+                light={true}
+                playing={true}
+                className="vidoeplayer"
+              />
+            )}
           </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 

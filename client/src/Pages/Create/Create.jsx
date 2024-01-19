@@ -66,9 +66,10 @@ const Create = () => {
     handleGetSingleCourse();
   }, [params, user._id]);
 
-  const handleChange = (name, value) => {
+  const handleChange = useCallback((name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
-  };
+  }, [setInputs]);
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -132,7 +133,7 @@ const Create = () => {
         token,
         data: { chapterId: chapterId },
         method: "DELETE",
-        userId: user?._id,        
+        userId: user?._id,
       })
     } catch (error) {
       toast.error('deleting chapter failed')
@@ -163,7 +164,7 @@ const Create = () => {
             <Input name="description" value={inputs.description} onChange={handleChange} />
           </div>
           <div className="box courseimage">
-            <input type="file" onChange={imagesubmit} id="uploadimage" />
+            <input type="file" accept="image/*" onChange={imagesubmit} id="uploadimage" />
             <div className="top">
               <h1>Thumbnail Image</h1>
               <label htmlFor="uploadimage" className="upload">

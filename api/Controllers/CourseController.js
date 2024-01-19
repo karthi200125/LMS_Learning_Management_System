@@ -49,7 +49,7 @@ export const AllCourse = async (req, res, next) => {
 }
 
 export const getSingleCourse = async (req, res, next) => {
-    const { courseId } = req.body;
+    const { userId:courseId } = req.body;    
     try {
         const singlecourse = await CourseModel.findById(courseId);
         res.status(200).json(singlecourse);

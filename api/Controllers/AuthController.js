@@ -66,7 +66,7 @@ export const GoogleLogin = async (req, res, next) => {
             const comparePassword = bcrypt.compareSync(azp, existuser.googleid);
 
             if (comparePassword) {
-                const token = jwt.sign({ id: existuser._id, isAdmin: existuser.role }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+                const token = jwt.sign({ id: existuser._id, isAdmin: existuser.role }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });                
                 const user = existuser._doc;
                 res.cookie("access_token", token, { httpOnly: true, secure: true, sameSite: 'Lax' }).status(200).json({ token, ...user });
             } else {

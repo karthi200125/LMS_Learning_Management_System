@@ -8,13 +8,13 @@ const Card = ({ card, color, bs, border }) => {
     return (
         <Link
             className='card'
-            to={`/course/${card._id}`}
+            to={`/course/${card._id}`}            
             state={card}
             style={{ color: color, boxShadow, border: border }}
             onMouseEnter={() => setBoxShadow(bs)}
-            onMouseLeave={() => setBoxShadow(null)}
+            onMouseLeave={() => setBoxShadow(null)}            
         >
-            <img src={card.imageUrl} alt="" loading='lazy' />
+            <img src={card.imageUrl} alt="" loading='lazy' />            
             <div className='content'>
                 <h1>{card.title}</h1>
                 <p className='carddesc'>{card.description}</p>

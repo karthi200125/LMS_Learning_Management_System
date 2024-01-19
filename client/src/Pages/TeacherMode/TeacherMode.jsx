@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { MdArrowRightAlt, MdDelete, MdModeEdit } from "react-icons/md";
 import { RiArrowUpDownLine } from "react-icons/ri";
@@ -40,7 +40,7 @@ const TeacherMode = () => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTitleCreate = async (e) => {
+  const handleTitleCreate = useCallback(async (e) => {
     e.preventDefault()
     try {
       settitleCreateLoad(true)
@@ -58,14 +58,14 @@ const TeacherMode = () => {
     } finally {
       settitleCreateLoad(false)
     }
-  }
+  }, [inputs, user?._id, navigate, settitleCreateLoad]);
 
-  const getDelid = (id) => {
+  const getDelid = useCallback((id) => {
     setisDelModalOpen(true)
     setDelId(id)
-  }
+  }, [setisDelModalOpen, setDelId]);
 
-  const handleDeleteCourse = async () => {
+  const handleDeleteCourse = useCallback(async () => {
     try {
       setisDelModalOpen(true);
       const res = await handleRequest({
@@ -84,10 +84,10 @@ const TeacherMode = () => {
     } finally {
       setisDelModalOpen(false);
     }
-  }
+  }, [delId, setisDelModalOpen, dispatch, fetchData]);
 
 
-  const deletebodycontent = (
+  const deletebodycontent = useMemo(() => (
     <div className="deletemodal">
       <Button
         title="Delete Course"
@@ -98,9 +98,9 @@ const TeacherMode = () => {
         isLoading={isLoading}
       />
     </div>
-  )
+  ), []);
 
-  const bodyconetnt = (
+  const bodyconetnt = useMemo(() => (
     <form className="newcoursetitle">
       <Input name="title" onChange={handleChange} />
       <Input name="price" onChange={handleChange} />
@@ -112,11 +112,11 @@ const TeacherMode = () => {
         isLoading={titleCreateLoad}
       />
     </form>
-  )
+  ), []);
 
   return (
     <div className='teacher'>
-      <div className="top">        
+      <div className="top">
         <Button
           title="New Course"
           glow={false}

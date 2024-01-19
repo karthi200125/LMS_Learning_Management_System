@@ -59,15 +59,42 @@
                 padding: 0 10px;
 
                 h1 {
-                    font-size: 20px;
+                    font-size: 15px;
                 }
 
-                label {
-                    width: 150px;
-                    @include sb;
-                    cursor: pointer;
+                .uploadurl {
+                    width: 350px;
+                    
+                    span{
+                        cursor: pointer;
+                    }
+
+                    .inputvideourl {
+                        @include fr;
+                        width: 350px;
+                        gap: 10px;
+
+                        input {
+                            padding: 8px;
+                            border-radius: 5px;
+                            width: 300px;
+
+                            &:focus {
+                                outline: #9813aa;
+                            }
+                        }
+
+                        button {
+                            width: max-content;
+                            padding: 8px 10px;
+                        }
+                    }
                 }
+
+
             }
+
+
 
             .videos {
                 width: 100%;
