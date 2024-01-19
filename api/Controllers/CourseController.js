@@ -17,7 +17,7 @@ export const CourseCreate = async (req, res, next) => {
 
 
 export const CourseDelete = async (req, res, next) => {
-    const { courseId, userId } = req.body;    
+    const { courseId, userId } = req.body;
     try {
         await ChapterModel.deleteMany({ courseId });
         await CourseModel.findByIdAndDelete(courseId);
@@ -41,7 +41,7 @@ export const CourseUpdate = async (req, res, next) => {
 export const AllCourse = async (req, res, next) => {
     const { userId } = req.body;
     try {
-        const allcourses = await CourseModel.find({ userId });
+        const allcourses = userId ? await CourseModel.find({ userId }) : await CourseModel.find();
         res.status(200).json(allcourses);
     } catch (error) {
         next(createError(500, "get all courses failed"));

@@ -1,8 +1,7 @@
 import './Skeleton.scss'
 
-export default function Skeleton({ type, count }) {
+export default function Skeleton({ type }) {
 
-    let COUNTER = count || 1
     const FeedSkeleton = () => (
         <div className='cardsk'>
             <div className="imagesk"></div>
@@ -16,7 +15,7 @@ export default function Skeleton({ type, count }) {
                 <div className="progresssk"></div>
             </div>
         </div>
-    )    
+    )
 
-    if (type === 'card') return Array(COUNTER).fill(<FeedSkeleton />)    
+    if (type === 'card') return Array(10).fill(<FeedSkeleton />)
 }

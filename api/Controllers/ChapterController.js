@@ -14,7 +14,7 @@ export const ChapterCreate = async (req, res, next) => {
     }
 }
 export const ChapterDelete = async (req, res, next) => {
-    const { chapterId } = req.body;
+    const { chapterId } = req.body;    
     try {
         await ChapterModel.findByIdAndDelete(chapterId);
         await CourseModel.updateOne({ chapters: chapterId }, { $pull: { chapters: chapterId } });
@@ -26,7 +26,6 @@ export const ChapterDelete = async (req, res, next) => {
 
 export const ChapterUpdate = async (req, res, next) => {
     const { chapterId } = req.body;
-    // console.log(req.body)
     try {
         const updatedChapter = await ChapterModel.findByIdAndUpdate(chapterId, { $set: req.body }, { new: true });
         res.status(200).json(updatedChapter);

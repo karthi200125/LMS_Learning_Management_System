@@ -70,7 +70,7 @@ const RegisterModal = ({ isOpen, onClose, onLoginClick }) => {
         </form>
     );
 
-    return <Modal isOpen={isOpen} onClose={onClose} title='Register' subTitle='Welcome to skillSphere' bodyContent={bodyContent} />;
+    return <Modal isOpen={isOpen} onClose={onClose} title='Register' subTitle='Welcome to รｋⓘⓁ𝐋Ş𝕡卄єяє' bodyContent={bodyContent} />;
 };
 
 export default RegisterModal;

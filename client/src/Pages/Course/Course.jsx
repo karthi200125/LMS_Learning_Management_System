@@ -21,9 +21,7 @@ const Course = () => {
     url: '/chapter/getchapter',
     id: chapterId ? chapterId : data.chapters[0],
   });
-
-  console.log(result)
-
+  
   return (
     <div className='chapter'>
       <div className="video">

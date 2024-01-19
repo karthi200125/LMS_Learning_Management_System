@@ -54,7 +54,7 @@ const DashBoard = () => {
         <div className="dash">
             <form className="top" >
                 <div className="side">
-                    <img src={profileImg ? profileImg : noprofile} alt={name} />
+                    <img src={profileImg ? profileImg : noprofile} alt={name} loading='lazy'/>
                     <input type="file" id="img" style={{ display: 'none' }} onChange={imagesubmit} />
                     <label htmlFor="img" className="change-profile-html">
                         <span>Change Profile</span>

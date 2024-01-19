@@ -59,6 +59,11 @@
             align-items: start;
             justify-content: start;
             padding: 0;
+            gap: 10px;
+
+            .book{                
+                color: blue;
+            }
         }
 
         .progress {

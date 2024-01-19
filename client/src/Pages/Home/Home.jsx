@@ -43,8 +43,7 @@ const Home = () => {
   const paginate = useCallback((pageNumber) => {
     setCurrentPage(pageNumber);
   }, []);
-
-
+  
   return (
     <div className='home'>
       <Categories />
@@ -62,7 +61,7 @@ const Home = () => {
             )
           )}
         </div>
-        {totalPosts?.length >= 10 &&
+        {totalPosts?.length > 10 &&
           <div className="pagination">
             <Button title="Prev" glow={false} onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
             {Array.from({ length: totalPosts }, (_, page) => (

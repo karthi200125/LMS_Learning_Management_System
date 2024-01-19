@@ -9,9 +9,7 @@ import Reviews from '../../LadingPageComponents/Reviews/Reviews'
 import './LandingPage.scss'
 
 const LandingPage = () => {
-
-  
-
+    
   return (
     <div className='landingpage' >
       <LandingPageNavbar />

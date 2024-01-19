@@ -24,14 +24,16 @@ const Create = () => {
   const [course, setCourse] = useState({});
   const [isLoading, setisLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
+  const [category, setCategory] = useState(course?.category || '');
   const token = localStorage.getItem('access_token');
 
+  const defaultCategory = course?.category || '';
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
     imageUrl: '',
     price: '',
-    category: '',
+    category: defaultCategory,
     courseId: '',
   });
 
@@ -70,6 +72,10 @@ const Create = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!inputs.title || !inputs.description || !inputs.imageUrl || !inputs.price || !inputs.category) {
+      toast.error("Please fill in all the required fields");
+      return;
+    }
     try {
       setisLoading(true);
       const res = await handleRequest({
@@ -98,16 +104,6 @@ const Create = () => {
     fetchData();
   }, [fetchData]);
 
-  const options = [
-    { id: 1, title: "category" },
-    { id: 2, title: "engineering" },
-    { id: 3, title: "technology" },
-    { id: 4, title: "computerscience" },
-    { id: 5, title: "accounting" },
-    { id: 6, title: "film" },
-    { id: 7, title: "music" },
-  ];
-
   const imagesubmit = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -118,6 +114,30 @@ const Create = () => {
     const url = await ImageUplaod(file)
     setImageUrl(url)
   };
+
+  const options = [
+    { id: 1, title: "category" },
+    { id: 2, title: "engineering" },
+    { id: 3, title: "technology" },
+    { id: 4, title: "computerscience" },
+    { id: 5, title: "accounting" },
+    { id: 6, title: "film" },
+    { id: 7, title: "music" },
+  ];
+
+  const deleteChapter = async (chapterId) => {
+    try {
+      const res = await handleRequest({
+        url: '/chapter/delete',
+        token,
+        data: { chapterId: chapterId },
+        method: "DELETE",
+        userId: user?._id,        
+      })
+    } catch (error) {
+      toast.error('deleting chapter failed')
+    }
+  }
 
   return (
     <div className="create">
@@ -144,14 +164,17 @@ const Create = () => {
           </div>
           <div className="box courseimage">
             <input type="file" onChange={imagesubmit} id="uploadimage" />
-            <label htmlFor="uploadimage" className="upload">
-              <span>Select Image</span>
-              <CiSquarePlus />
-            </label>
+            <div className="top">
+              <h1>Thumbnail Image</h1>
+              <label htmlFor="uploadimage" className="upload">
+                <span>Select Image</span>
+                <CiSquarePlus />
+              </label>
+            </div>
             {inputs.imageUrl || imageUrl ? (
-              <img src={inputs.imageUrl || imageUrl} alt={inputs.title} />
+              <img src={inputs.imageUrl || imageUrl} alt={inputs.title} loading='lazy' />
             ) : (
-              <img className='noimage' src={noimage} alt={inputs.title} />
+              <img className='noimage' src={noimage} alt={inputs.title} loading='lazy' />
             )}
 
           </div>
@@ -172,14 +195,14 @@ const Create = () => {
                   <div key={cl.title} className='chapterslist'>
                     <div className='side'>
                       <FaBarsProgress size={25} />
-                      <span>{cl.title}</span>
+                      <span>{cl?.title}</span>
                     </div>
                     <div className='side'>
-                      <p>{cl.title}</p>
+                      <p>{cl?.isPublished === true ? "publish" : "published"}</p>
                       <Link to={`/teachermode/chaptercreate/${params?.id}`} state={cl?._id}>
                         <MdOutlineEdit size={20} />
                       </Link>
-                      <MdDelete size={25} className="del" onClick={() => setdelopen(true)} />
+                      <MdDelete size={25} className="del" onClick={() => deleteChapter(cl?._id)} />
                     </div>
                   </div>
                 ))
@@ -193,9 +216,12 @@ const Create = () => {
             <Input name="price" value={inputs.price} onChange={handleChange} />
           </div>
           <div className="box">
-            <select name="category" onChange={(e) => handleChange('category', e.target.value)} required>
+            <select value={inputs.category} onChange={(e) => handleChange('category', e.target.value)}>
+              <option value="">Select category...</option>
               {options.map((option) => (
-                <option className='selectoption' value={inputs.category} key={option.id}>{option.title}</option>
+                <option key={option.id} value={option.title}>
+                  {option.title}
+                </option>
               ))}
             </select>
           </div>

@@ -51,17 +51,31 @@
                     border-radius: 10px;
                 }
 
-                .noimage {
-                    object-fit: contain !important;
+                .top {
+                    width: 100%;
+                    @include sb;
+                    flex-direction: row;                    
+                    padding: 0;
+
+                    h1 {
+                        font-size: 20px;
+                        width: 250px;
+                    }
+
+                    .noimage {
+                        object-fit: contain !important;
+                    }
+
+                    .upload {
+                        width: 100%;
+                        @include center;
+                        flex-direction: row;
+                        cursor: pointer;
+                        gap: 10px;
+                    }
                 }
 
-                .upload {
-                    width: 100%;
-                    @include center;
-                    flex-direction: row;
-                    cursor: pointer;
-                    gap: 10px;
-                }
+
 
                 #uploadimage {
                     display: none;

@@ -17,7 +17,7 @@
 
     .modal {
         width: 450px;
-        max-height: 80vh;
+        max-height: max-content;
         @include sb;
         flex-direction: column;
         background-color: white;

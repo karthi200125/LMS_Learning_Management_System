@@ -35,10 +35,6 @@ const TeacherMode = () => {
     id: user?._id
   });
 
-  // useEffect(() => {
-  //   fetchData()
-  // }, [fetchData])
-
 
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));

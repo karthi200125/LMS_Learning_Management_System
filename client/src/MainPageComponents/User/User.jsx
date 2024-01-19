@@ -11,7 +11,7 @@ const User = () => {
     return (
         <div className='user'>
             <span>{user?.username}</span>
-            <img src={user?.profileImg || noProfile} alt={user?.username} onClick={() => setProfileOpen(!profileOpen)} />
+            <img src={user?.profileImg || noProfile} alt={user?.username} onClick={() => setProfileOpen(!profileOpen)} loading='lazy'/>
             {profileOpen &&
                 <ProfileCard />
             }

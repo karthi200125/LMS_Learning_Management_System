@@ -30,7 +30,7 @@
 
     .videoncon {
         width: 100%;
-        height: 200px;
+        height: 300px;
         display: flex;
         align-items: start;
         justify-content: space-between;
@@ -40,12 +40,43 @@
 
         .chapterselect {
             width: 100%;
-            padding: 15px;            
-            border-radius: 5px;            
+            padding: 15px;
+            border-radius: 5px;
         }
 
         .videouplaod {
-            width: 100%;            
+            width: 100%;
+            height: 100%;
+            @include fc;
+            gap: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+
+            .top {
+                width: 100%;
+                @include sb;
+                padding: 0 10px;
+
+                h1 {
+                    font-size: 20px;
+                }
+
+                label {
+                    width: 150px;
+                    @include sb;
+                    cursor: pointer;
+                }
+            }
+
+            .videos {
+                width: 100%;
+                height: 100%;
+                @include center;
+                background-color: black;
+                overflow: hidden;
+            }
+
         }
     }
 }

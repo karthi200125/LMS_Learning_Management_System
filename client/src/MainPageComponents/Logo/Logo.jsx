@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import './Logo.scss'
 import { memo } from 'react'
+import logoimg from '../../assets/cap.png'
 
 const Logo = () => {
 
@@ -8,7 +9,8 @@ const Logo = () => {
 
     return (
         <div className="logo" onClick={() => navigate('/')}>
-            SkillSphere
+            <img src={logoimg} alt="logo" />
+            <span>รｋⓘⓁ𝐋Ş𝕡卄єяє</span>
         </div>
     )
 }

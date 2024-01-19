@@ -7,6 +7,10 @@ import { MdArrowRightAlt } from 'react-icons/md';
 import handleRequest from '../../Utils/Handlerequest';
 import { useSelector } from 'react-redux';
 import useCustomFetch from '../../Utils/CustomFetch';
+import { toast } from 'sonner';
+import ReactPlayer from 'react-player';
+import { CiCirclePlus } from 'react-icons/ci';
+import { ImageUplaod } from '../../Utils/UploadImage';
 
 const Chapter = () => {
   const navigate = useNavigate();
@@ -14,16 +18,18 @@ const Chapter = () => {
   const location = useLocation();
   const editId = location.state;
 
-  const [video, setVideo] = useState('videoLink');
+  // https://player.vimeo.com/external/320304435.sd.mp4?s=5bf3fe3cad5891fd216a8dc26af46b3a7f4f4215&profile_id=164&oauth2_token_id=57447761
+  const [video, setVideo] = useState('');
   const [chapter, setChapter] = useState({});
   const [getChapterId, setGetChapterId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [free, setfree] = useState(false);
+  const [videoUrl, setvideoUrl] = useState('');
 
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
-    isFree: free,
+    isFree: false,
     courseId: editId ? editId : params?.id,
     videoUrl: video,
   });
@@ -37,11 +43,11 @@ const Chapter = () => {
     setInputs({
       title: result?.title || '',
       description: result?.description || '',
-      isFree: '',
+      isFree: free,
       videoUrl: video,
       courseId: editId ? editId : params?.id,
     });
-  }, [result, video, params?.id]);
+  }, [result, video, params?.id, free]);
 
   const token = localStorage.getItem('access_token');
   const { user } = useSelector((state) => state.auth);
@@ -59,6 +65,11 @@ const Chapter = () => {
 
   const handleChapterCreate = async (e) => {
     e.preventDefault();
+    if (!inputs.title || !inputs.description || !inputs.videoUrl) {
+      toast.error("All fields are required. Please fill out all the fields.");
+      // setIsLoading(false)
+    }
+
     try {
       setIsLoading(true);
       const apiEndpoint = editId ? '/chapter/update' : '/chapter/create';
@@ -79,6 +90,16 @@ const Chapter = () => {
       setIsLoading(false);
     }
   };
+
+  // const videoSubmit = async (e) => {
+  //   const file = e.target.files[0];    
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => setVideo(e.target.result);
+  //     const url = await ImageUplaod(file, mediaType)
+  //     setvideoUrl(url);
+  //   }
+  // };
 
   return (
     <form className='chapter'>
@@ -103,7 +124,17 @@ const Chapter = () => {
           <option value={false}>false</option>
         </select>
         <div className="videouplaod">
-          video uplaod
+          <div className="top">
+            <h1>chapter Video</h1>
+            <input type="file" style={{ display: 'none' }} id="lableidvideo" onChange={videoSubmit} />
+            <label htmlFor="lableidvideo">
+              <span>Uplaod video</span>
+              <CiCirclePlus />
+            </label>
+          </div>
+          <div className="videos">
+            <ReactPlayer url={inputs.videoUrl} height="100%" width="100%" controls={true} light={true} playing={true} className="vidoeplayer" />
+          </div>
         </div>
       </div>
     </form>

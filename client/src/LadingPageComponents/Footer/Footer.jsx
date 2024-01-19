@@ -5,6 +5,7 @@ import { RiInstagramFill } from "react-icons/ri";
 const Footer = () => {
   return (
     <div className='footer'>
+      
       <div className="lists">
         <ul>
           <h1>Coursera</h1>

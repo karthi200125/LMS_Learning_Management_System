@@ -15,12 +15,8 @@ const LandingPage = lazy(() => import('./Pages/LandingPage/LandingPage'))
 const TeacherMode = lazy(() => import('./Pages/TeacherMode/TeacherMode'))
 
 const App = () => {
-
   const { user: currentUser } = useSelector(state => state.auth);
-
-
   const Layout = ({ children }) => {
-
     return (
       <div className='homelayout'>
         <NavBar />
@@ -37,6 +33,13 @@ const App = () => {
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
       return <Navigate to="/landingpage" />;
+    }
+    return children;
+  };
+
+  const UnauthenticatedRoute = ({ children }) => {
+    if (currentUser) {
+      return <Navigate to="/" />;
     }
     return children;
   };
@@ -78,7 +81,11 @@ const App = () => {
     },
     {
       path: '/landingpage',
-      element: <Suspense> <LandingPage /></Suspense>
+      element: (
+        <UnauthenticatedRoute>
+          <Suspense> <LandingPage /></Suspense>
+        </UnauthenticatedRoute>
+      ),
     }
   ]);
 

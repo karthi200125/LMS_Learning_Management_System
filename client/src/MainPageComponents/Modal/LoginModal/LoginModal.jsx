@@ -79,7 +79,7 @@ const LoginModal = ({ isOpen, onClose, RegOpen }) => {
         </form>
     );
 
-    return <Modal isOpen={isOpen} onClose={onClose} title="Login" subTitle="welcome Back skillSphere" bodyContent={bodyContent} />;
+    return <Modal isOpen={isOpen} onClose={onClose} title="Login" subTitle="welcome Back รｋⓘⓁ𝐋Ş𝕡卄єяє" bodyContent={bodyContent} />;
 };
 
 export default LoginModal;

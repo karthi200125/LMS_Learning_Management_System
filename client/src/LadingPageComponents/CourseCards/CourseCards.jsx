@@ -1,43 +1,51 @@
 import { MdArrowRightAlt } from "react-icons/md";
 import Button from '../../MainPageComponents/Button/Button';
+import useCustomFetch from '../../Utils/CustomFetch';
 import Card from '../../MainPageComponents/Card/Card';
 import './CourseCards.scss';
+import LoginModal from "../../MainPageComponents/Modal/LoginModal/LoginModal";
+import { useState } from "react";
+import RegisterModal from "../../MainPageComponents/Modal/RegisterModal/RegisterModal";
 
 const CourseCards = () => {
 
-  const cards = [
-    {
-      id: 1,
-      title: "one",
-      img: "",
-      cat: "engineering",
-      chapters: 10,
-    },
-    {
-      id: 2,
-      title: "two",
-      img: "",
-      cat: "engineering",
-      chapters: 10,
-    },
-    {
-      id: 3,
-      title: "three",
-      img: "",
-      cat: "engineering",
-      chapters: 10,
-    },
-  ]
+  const { result, isLoading, error, fetchData } = useCustomFetch({
+    url: `/course/getallcourses`
+  });
+
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+
+  const openLoginModal = () => {
+    setLoginModalOpen(true);
+  };
+
+  const closeLoginModal = () => {
+    setLoginModalOpen(false);
+  };
+
+  const openRegisterModal = () => {
+    setRegisterModalOpen(true);
+  };
+
+  const closeRegisterModal = () => {
+    setRegisterModalOpen(false);
+  };
+
+
+
 
   return (
     <div className="cards">
       <h1 className="cardtitle">See what you can learn with us</h1>
       <div className='lpcards'>
-        {cards.map((card) => (
-          <Card key={card.id} card={card} />
-        ))}        
+        {result?.map((card) => (
+          <Card key={card.id} card={card} color="white" bs="0 0 30px #9813aa" border="1px solid #9813aa"/>
+        ))}
       </div>
-      <Button title="All" icon={<MdArrowRightAlt size={25} />} />
+      <Button title="All" icon={<MdArrowRightAlt size={25} />} onClick={() => { openLoginModal(); closeRegisterModal(); }} />
+      <RegisterModal isOpen={isRegisterModalOpen} onClose={closeRegisterModal} onLoginClick={openLoginModal} />
+      <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} RegOpen={openRegisterModal} />
     </div>
   )
 }
