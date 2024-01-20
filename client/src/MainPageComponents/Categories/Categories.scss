@@ -2,14 +2,13 @@
 
 .categories {
     width: 100%;
-    height: max-content;
+    height: 100px;
     overflow-x: scroll;
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 20px;
-    padding: 10px;
-    flex-direction: row;    
+    gap: 20px;    
+    flex-direction: row;       
 
     &::-webkit-scrollbar {
         display: none;

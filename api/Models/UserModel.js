@@ -18,7 +18,7 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        minlength: 6,        
+        minlength: 6,
     },
     googleid: {
         type: String
@@ -31,6 +31,14 @@ const UserSchema = new Schema({
         enum: ['student', 'admin'],
         default: 'student'
     },
+    ChapterCompleted: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Chapter'
+    }],
+    CourseCompleted: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Course'
+    }],
     coursesEnrolled: [{
         type: Schema.Types.ObjectId,
         ref: 'Course'

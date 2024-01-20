@@ -8,7 +8,7 @@ const useCustomFetch = ({ url, id }) => {
   const [error, setError] = useState(false)
   const [isLoading, setisLoading] = useState(false)
   const { user } = useSelector(state => state.auth)
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {

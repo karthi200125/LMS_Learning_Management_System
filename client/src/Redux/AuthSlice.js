@@ -18,8 +18,16 @@ const AuthSlice = createSlice({
       state.user = null;
       localStorage.removeItem("user");
     },
+    ChapterCompleted: (state, action) => {
+      state.user.ChapterCompleted.push(action.payload?.ChapterCompleted[0]);
+      localStorage.setItem("user", JSON.stringify(action.payload));
+    },
+    CourseCompleted: (state, action) => {
+      state.user.CourseCompleted.push(action.payload?.CourseCompleted[0]);
+      localStorage.setItem("user", JSON.stringify(action.payload));
+    },
   },
 });
 
-export const { login, logout } = AuthSlice.actions;
+export const { login, logout, ChapterCompleted, CourseCompleted } = AuthSlice.actions;
 export default AuthSlice.reducer;

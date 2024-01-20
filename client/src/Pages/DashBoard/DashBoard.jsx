@@ -7,6 +7,7 @@ import handleRequest from '../../Utils/Handlerequest';
 import { ImageUplaod } from '../../Utils/UploadImage';
 import './DashBoard.scss';
 import noprofile from '../../assets/noprofile.png'
+import useCustomFetch from '../../Utils/CustomFetch';
 
 const DashBoard = () => {
     const { user } = useSelector((state) => state.auth);
@@ -49,12 +50,18 @@ const DashBoard = () => {
         setProfileImg(url)
     };
 
+    const { result } = useCustomFetch({
+        url: '/course/getallcourses',
+    })
+
+    const filteredEnrolledCourses = result.filter((course) => user?.coursesEnrolled.includes(course._id));
+
 
     return (
         <div className="dash">
             <form className="top" >
                 <div className="side">
-                    <img src={profileImg ? profileImg : noprofile} alt={name} loading='lazy'/>
+                    <img src={profileImg ? profileImg : noprofile} alt={name} loading='lazy' />
                     <input type="file" id="img" style={{ display: 'none' }} onChange={imagesubmit} />
                     <label htmlFor="img" className="change-profile-html">
                         <span>Change Profile</span>
@@ -72,6 +79,20 @@ const DashBoard = () => {
                 </div>
                 <Button title="Update" glow={false} onClick={handleUpdate} isLoading={isLoading} />
             </form>
+            <div className="enrooledcourses">
+                <h1>Your Enrolled Courses</h1>
+                <div className="courses">
+                    {filteredEnrolledCourses?.map((course) => (
+                        <div className="enrollcourse" key={course._id}>
+                            <h2>{course.title}</h2>
+                            <p> ₹ {course.price} RS</p>
+                            <div className="courseprogress">
+                                progree
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };
