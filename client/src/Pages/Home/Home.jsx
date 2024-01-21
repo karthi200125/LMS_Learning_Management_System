@@ -14,9 +14,8 @@ const Home = () => {
   const location = useLocation();
   const searchQuery = location.state;
 
-  const { result, isLoading, error, fetchData } = useCustomFetch({
-    url: `/course/getallcourses`,
-    // id: user?._id
+  const { result, isLoading } = useCustomFetch({
+    url: `/course/getallcourses`,    
   });
 
   const filteredData = useMemo(() => {

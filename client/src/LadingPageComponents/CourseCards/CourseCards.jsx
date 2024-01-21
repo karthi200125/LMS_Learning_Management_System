@@ -8,10 +8,11 @@ import { useState } from "react";
 import RegisterModal from "../../MainPageComponents/Modal/RegisterModal/RegisterModal";
 
 const CourseCards = () => {
-
-  const { result, isLoading, error, fetchData } = useCustomFetch({
-    url: `/course/getallcourses`
+  const { result } = useCustomFetch({
+    url: `/course/getallcourses`,
   });
+  
+  const limitedCourses = result?.slice(0, 6);
 
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
@@ -32,14 +33,11 @@ const CourseCards = () => {
     setRegisterModalOpen(false);
   };
 
-
-
-
   return (
     <div className="cards">
       <h1 className="cardtitle">See what you can learn with us</h1>
       <div className='lpcards'>
-        {result?.map((card) => (
+        {limitedCourses?.map((card) => (
           <Card key={card.id} card={card} color="white" bs="0 0 30px #9813aa" border="1px solid #9813aa"/>
         ))}
       </div>
@@ -47,7 +45,7 @@ const CourseCards = () => {
       <RegisterModal isOpen={isRegisterModalOpen} onClose={closeRegisterModal} onLoginClick={openLoginModal} />
       <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} RegOpen={openRegisterModal} />
     </div>
-  )
+  );
 }
 
-export default CourseCards
+export default CourseCards;

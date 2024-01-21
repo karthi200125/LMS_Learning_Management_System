@@ -2,61 +2,55 @@ import React, { useEffect, useState } from 'react';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { IoLockClosedOutline } from 'react-icons/io5';
 import ReactPlayer from 'react-player';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Button from '../../MainPageComponents/Button/Button';
-import useCustomFetch from '../../Utils/CustomFetch';
-import './Course.scss';
-import handleRequest from '../../Utils/Handlerequest';
-import { useDispatch, useSelector } from 'react-redux';
 import { ChapterCompleted } from '../../Redux/AuthSlice';
-import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
+import useCustomFetch from '../../Utils/CustomFetch';
+import useHandleCrud from '../../Utils/HandleCrud';
+import './Course.scss';
 
 
 const Course = () => {
   const params = useParams();
   const url = new URL(window.location.href);
   const chapterId = url.searchParams.get('chapterId');
-  const token = localStorage.getItem('access_token')
   const { user } = useSelector(state => state.auth)
-  const dispatch = useDispatch()
 
+  // get course 
   const { result: courseData } = useCustomFetch({
     url: '/course/getcourse',
     id: params.id,
   });
 
   const [firstChapter, setFirstChapter] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (courseData?.chapters && courseData?.chapters.length > 0) {
       setFirstChapter(courseData?.chapters[0]);
     }
-  }, [courseData]);
+  }, [courseData ]);
 
-  const { result } = useCustomFetch({
+  const { result, Refetch } = useCustomFetch({
     url: '/chapter/getchapter',
     id: chapterId ? chapterId : firstChapter,
   });
 
+  // user update
+  const { isLoading, fetchData } = useHandleCrud(
+    '/user/update',
+    'PUT',
+    { userId: user?._id, chapterId: chapterId ? chapterId : firstChapter },
+    "Chpater has been completed",
+    ChapterCompleted,
+  );
 
+  // mark as complete  
   const markasComplete = async () => {
-    try {
-      setLoading(true)
-      const res = await handleRequest({
-        url: '/user/update',
-        token,
-        data: { userId: user?._id, chapterId: chapterId ? chapterId : firstChapter },
-        method: 'PUT',
-        userId: user?._id,
-      })
-      dispatch(ChapterCompleted(res))
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setLoading(false)
-    }
-  }
+    await fetchData();
+    Refetch();
+  };
+
   const chapterComplete = user?.ChapterCompleted?.includes(chapterId ? chapterId : firstChapter)
   const free = result?.isFree === true;
 
@@ -92,7 +86,7 @@ const Course = () => {
             title={free ? chapterComplete ? "chapter completed" : "mark as Complete" : `Enroll for ₹ ${courseData?.price} RS`}
             glow={false}
             onClick={free && !chapterComplete ? markasComplete : undefined}
-            isLoading={loading}
+            isLoading={isLoading}
             classname={chapterComplete && 'transparent'}
             bg={chapterComplete && '#4FBF26'}
           />

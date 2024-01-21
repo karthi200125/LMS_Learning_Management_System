@@ -12,16 +12,14 @@ const SideBar = () => {
   const location = useLocation()
   const pathname = location.pathname
   const { user } = useSelector(state => state.auth)
-  const params = useParams()  
+  const params = useParams()
 
-  const { result, fetchData } = useCustomFetch({
+  const { result } = useCustomFetch({
     userId: user?._id,
     url: '/chapter/getall',
     id: params.id,
   });
-
   
-
   return (
     <div className='sidebar'>
       {pathname !== `/course/${params.id}` &&

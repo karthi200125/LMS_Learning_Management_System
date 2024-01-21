@@ -158,3 +158,11 @@
 .selectoption {
     text-transform: capitalize;
 }
+
+.del{    
+    cursor: pointer;
+
+    &:hover{
+        color: red;
+    }
+}

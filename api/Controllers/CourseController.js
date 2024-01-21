@@ -5,7 +5,7 @@ import User from '../Models/UserModel.js';
 import { createError } from '../Utils/CreateError.js'
 
 export const CourseCreate = async (req, res, next) => {
-    const { userId, title, price } = req.body;
+    const { userId, title, price } = req.body;    
     try {
         const newCourse = await CourseModel.create({ userId, title, price });
         await User.findByIdAndUpdate(userId, { $push: { coursesEnrolled: newCourse._id } });
@@ -17,7 +17,7 @@ export const CourseCreate = async (req, res, next) => {
 
 
 export const CourseDelete = async (req, res, next) => {
-    const { courseId, userId } = req.body;
+    const { courseId, userId } = req.body;    
     try {
         await ChapterModel.deleteMany({ courseId });
         await CourseModel.findByIdAndDelete(courseId);
@@ -49,7 +49,7 @@ export const AllCourse = async (req, res, next) => {
 }
 
 export const getSingleCourse = async (req, res, next) => {
-    const { userId:courseId } = req.body;    
+    const { userId:courseId } = req.body;            
     try {
         const singlecourse = await CourseModel.findById(courseId);
         res.status(200).json(singlecourse);

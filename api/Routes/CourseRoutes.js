@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.post("/getallcourses", AllCourse);
 router.post("/getcourse", getSingleCourse);
-router.post("/create", VerifyToken, VerifyUser, CourseCreate);
-router.delete("/delete", VerifyToken, VerifyUser, CourseDelete);
-router.put("/update", VerifyToken, VerifyUser, CourseUpdate);
+router.post("/create", CourseCreate);
+router.delete("/delete", CourseDelete);
+router.put("/update", CourseUpdate);
 
 export default router;

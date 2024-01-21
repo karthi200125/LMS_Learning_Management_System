@@ -8,8 +8,9 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 const Card = ({ card, color, bs, border }) => {
     const [boxShadow, setBoxShadow] = useState(null);
     const { user } = useSelector(state => state.auth)
-    const enroll = user?.coursesEnrolled.includes(card?._id)    
     const completeChapters = card?.chapters?.filter((chapter) => user?.ChapterCompleted.includes(chapter));
+
+    const Progressopen = card?.chapters.some(chapterId => user?.ChapterCompleted.includes(chapterId));    
 
     return (
         <Link
@@ -28,7 +29,7 @@ const Card = ({ card, color, bs, border }) => {
                     <IoBookOutline size={20} className="book" />
                     <span>{card?.chapters?.length} Chapters</span>
                 </div>
-                {enroll ?
+                {Progressopen ?
                     <div className="progress">
                         <ProgressBar totalChapters={card?.chapters?.length || 0} completedChapters={completeChapters?.length || 0} />
                     </div>

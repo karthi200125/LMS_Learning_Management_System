@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import './Chapter.scss';
-import Input from '../../MainPageComponents/Input/Input';
-import Button from '../../MainPageComponents/Button/Button';
 import { MdArrowRightAlt } from 'react-icons/md';
-import handleRequest from '../../Utils/Handlerequest';
-import { useSelector } from 'react-redux';
-import useCustomFetch from '../../Utils/CustomFetch';
-import { toast } from 'sonner';
 import ReactPlayer from 'react-player';
+import { useLocation, useParams } from 'react-router-dom';
+import { toast } from 'sonner';
+import Button from '../../MainPageComponents/Button/Button';
+import Input from '../../MainPageComponents/Input/Input';
+import useCustomFetch from '../../Utils/CustomFetch';
+import useHandleCrud from '../../Utils/HandleCrud';
+import './Chapter.scss';
 
 const Chapter = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
   const editId = location.state;
   const [openUrl, setOpenUrl] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [free, setFree] = useState(false);
   const [videoUrl, setVideoUrl] = useState('https://youtu.be/gizihSJ63o4?si=uQcYK_JY-dPg0Vz5');
   const [inputUrl, setInputUrl] = useState('');
@@ -29,7 +26,8 @@ const Chapter = () => {
     videoUrl: videoUrl,
   });
 
-  const { result } = useCustomFetch({
+  // get chapter
+  const { result, Refetch } = useCustomFetch({
     url: '/chapter/getchapter',
     id: editId
   });
@@ -44,40 +42,36 @@ const Chapter = () => {
     });
   }, [result, params?.id, free, videoUrl, editId]);
 
-  const token = localStorage.getItem('access_token');
-  const { user } = useSelector((state) => state.auth);
-
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
+  
+  const Editinputs = { 
+    title: inputs?.title, 
+    chapterId: result?._id, 
+    description: inputs?.description, 
+    isFree: inputs?.isFree, 
+    videoUrl: inputs?.videoUrl }
+  // chpater create and update data pass
+  const { isLoading, fetchData } = useHandleCrud(
+    editId ? '/chapter/update' : '/chapter/create',
+    editId ? 'PUT' : 'POST',
+    editId ? Editinputs : inputs,
+    editId ? `Chapter ${inputs.title} has been updated` : `Chapter ${inputs.title} has been created`,
+    '',
+    `/teachermode/create/${params?.id}`
+  );
 
+  // chapter create 
   const handleChapterCreate = async (e) => {
     e.preventDefault();
     if (!inputs.title || !inputs.description || !inputs.videoUrl) {
-      toast.error("All fields are required. Please fill out all the fields.");      
+      toast.error("All fields are required. Please fill out all the fields.");
     }
-
-    try {
-      setIsLoading(true);
-      const apiEndpoint = editId ? '/chapter/update' : '/chapter/create';
-      const successMsg = editId ? `Chapter ${inputs.title} has been updated` : `Chapter ${inputs.title} has been created`;
-      const res = await handleRequest({
-        url: apiEndpoint,
-        token,
-        data: editId ? requestData : inputs,
-        method: editId ? 'PUT' : 'POST',
-        userId: user?._id,
-        successmsg: successMsg,
-      });
-      setVideoUrl(res?.videoUrl);
-      navigate(`/teachermode/create/${params?.id}`);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+    await fetchData()
   };
 
+  // uolaod video url
   const handleUploadUrl = (e) => {
     e.preventDefault();
     setVideoUrl(inputUrl);

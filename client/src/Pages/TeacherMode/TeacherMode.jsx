@@ -1,49 +1,49 @@
-import { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { MdArrowRightAlt, MdDelete, MdModeEdit } from "react-icons/md";
 import { RiArrowUpDownLine } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from "sonner";
 import Button from '../../MainPageComponents/Button/Button';
 import Input from "../../MainPageComponents/Input/Input";
 import Modal from "../../MainPageComponents/Modal/Modal";
 import Skeleton from "../../MainPageComponents/Skeleton/Skeleton";
 import { deleteCourse } from "../../Redux/CourseSlice";
 import useCustomFetch from "../../Utils/CustomFetch";
+import useHandleCrud from "../../Utils/HandleCrud";
 import handleRequest from "../../Utils/Handlerequest";
 import './TeacherMode.scss';
 
 const TeacherMode = () => {
-  const { user } = useSelector(state => state.auth)
-  const dispatch = useDispatch()
-  const [isModalOpen, setisModalOpen] = useState(false)
-  const [titleCreateLoad, settitleCreateLoad] = useState(false)
-  const [isDelModalOpen, setisDelModalOpen] = useState(false)
+  const { user } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const [isModalOpen, setisModalOpen] = useState(false);
+  const [titleCreateLoad, settitleCreateLoad] = useState(false);
+  const [isDelModalOpen, setisDelModalOpen] = useState(false);
+  const [delId, setDelId] = useState('');
   const [inputs, setInputs] = useState({
     userId: user?._id,
     title: '',
     price: ''
   });
-  const [delId, setDelId] = useState('')
 
   const token = localStorage.getItem('access_token');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { result, error, isLoading, fetchData } = useCustomFetch({
+  const { result, error, isLoading, Refetch } = useCustomFetch({
     url: '/course/getallcourses',
     id: user?._id
   });
-
 
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
+  // course Title create 
   const handleTitleCreate = useCallback(async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      settitleCreateLoad(true)
+      settitleCreateLoad(true);
       const newcourse = await handleRequest({
         url: '/course/create',
         token,
@@ -52,42 +52,38 @@ const TeacherMode = () => {
         userId: user?._id,
         successmsg: "Course title created"
       });
-      navigate(`/teachermode/create/${newcourse?._id}`, { state: { newcourse } })
+      navigate(`/teachermode/create/${newcourse?._id}`, { state: { newcourse } });
     } catch (error) {
       console.error(error);
     } finally {
-      settitleCreateLoad(false)
+      settitleCreateLoad(false);
     }
   }, [inputs, user?._id, navigate, settitleCreateLoad]);
 
+  // Get Delete course Id
   const getDelid = useCallback((id) => {
-    setisDelModalOpen(true)
-    setDelId(id)
+    setisDelModalOpen(true);
+    setDelId(id);
   }, [setisDelModalOpen, setDelId]);
 
+  // Delete Course Data Pass
+  const { isLoading: deleteLoading, fetchData: deleteData } = useHandleCrud(
+    '/course/delete',
+    'DELETE',
+    { userId: user?._id, courseId: delId },
+    'course deleted successfully',
+    deleteCourse({ courseId: delId })
+  );
+
+  // Handle Delete Course
   const handleDeleteCourse = useCallback(async () => {
-    try {
-      setisDelModalOpen(true);
-      const res = await handleRequest({
-        url: '/course/delete',
-        token,
-        data: { courseId: delId, userId: user?._id },
-        method: "DELETE",
-        userId: user?._id,
-        successmsg: "course deleted successfully"
-      });
-      dispatch(deleteCourse({ courseId: delId }));
-      toast.success(res?.message || 'Course deleted successfully');
-      fetchData();
-    } catch (error) {
-      toast.error(error?.response?.data?.message || 'Failed to delete course');
-    } finally {
-      setisDelModalOpen(false);
-    }
-  }, [delId, setisDelModalOpen, dispatch, fetchData]);
+    await deleteData();
+    Refetch();
+    setisDelModalOpen(false)
+  }, [delId, setisDelModalOpen, dispatch, Refetch]);
 
-
-  const deletebodycontent = useMemo(() => (
+  //Delete course modal BodyContent 
+  const deleteBodyContent = useMemo(() => (
     <div className="deletemodal">
       <Button
         title="Delete Course"
@@ -95,24 +91,19 @@ const TeacherMode = () => {
         icon={<MdArrowRightAlt size={25} />}
         onClick={handleDeleteCourse}
         bg="red"
-        isLoading={isLoading}
+        isLoading={deleteLoading}
       />
     </div>
-  ), []);
+  ), [handleDeleteCourse, deleteLoading]);
 
-  const bodyconetnt = useMemo(() => (
+  // Ceate new course title bodyconetent
+  const bodyContent = useMemo(() => (
     <form className="newcoursetitle">
       <Input name="title" onChange={handleChange} />
       <Input name="price" onChange={handleChange} />
-      <Button
-        title="create new course"
-        glow={false}
-        icon={<MdArrowRightAlt size={25} />}
-        onClick={handleTitleCreate}
-        isLoading={titleCreateLoad}
-      />
+      <Button title="Create New Course" glow={false} icon={<MdArrowRightAlt size={25} />} onClick={handleTitleCreate} isLoading={titleCreateLoad} />
     </form>
-  ), []);
+  ), [handleChange, handleTitleCreate, titleCreateLoad]);
 
   return (
     <div className='teacher'>
@@ -127,7 +118,7 @@ const TeacherMode = () => {
           title="New Course Title"
           isOpen={isModalOpen}
           onClose={() => setisModalOpen(false)}
-          bodyContent={bodyconetnt}
+          bodyContent={bodyContent}
         />
       </div>
 
@@ -177,7 +168,7 @@ const TeacherMode = () => {
                         title="Are you sure you wanna delete"
                         isOpen={isDelModalOpen}
                         onClose={() => setisDelModalOpen(false)}
-                        bodyContent={deletebodycontent}
+                        bodyContent={deleteBodyContent}
                       />
                     </td>
                   </tr>
@@ -187,9 +178,8 @@ const TeacherMode = () => {
           </tbody>
         </table>
       </div>
-
     </div>
-  )
+  );
 }
 
 export default TeacherMode;

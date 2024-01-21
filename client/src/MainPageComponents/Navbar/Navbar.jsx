@@ -22,8 +22,8 @@ const Navbar = () => {
       {coursePage !== '/course/' && <Search />}
       <div className='navright'>
         {pathname === '/teachermode' ||
-        pathname === `/teachermode/create/${params.id}` ||
-        pathname === `/teachermode/chaptercreate/${params.id}` ? (
+          pathname === `/teachermode/create/${params.id}` ||
+          pathname === `/teachermode/chaptercreate/${params.id}` ? (
           <Button
             title='Exit'
             icon={<MdArrowRightAlt size={25} />}
@@ -32,17 +32,11 @@ const Navbar = () => {
             onClick={() => navigate('/')}
             color='black'
           />
-        ) : user?.role === 'admin' ? (
-          coursePage !== '/course/' && coursePage !== '/' && coursePage !== '/teachermode/chaptercreate' ? (
-            <Button
-              title='Teacher Mode'
-              glow={false}
-              icon={<MdArrowRightAlt size={25} />}
-              classname='btn'
-              onClick={() => navigate('/teachermode')}
-            />
-          ) : null
-        ) : null}
+        )
+          :
+          <Button title='Teacher Mode' glow={false} icon={<MdArrowRightAlt size={25} />} classname='btn' onClick={() => navigate('/teachermode')} />
+        }
+
         <User />
       </div>
     </div>

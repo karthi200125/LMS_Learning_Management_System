@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CiCirclePlus, CiSquarePlus } from 'react-icons/ci';
-import { FaBarsProgress } from "react-icons/fa6";
+import { FaBarsProgress } from 'react-icons/fa6';
 import { MdArrowRightAlt, MdDelete, MdOutlineEdit } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import Button from '../../MainPageComponents/Button/Button';
 import Input from '../../MainPageComponents/Input/Input';
 import { createCourse } from '../../Redux/CourseSlice';
 import useCustomFetch from '../../Utils/CustomFetch';
-import handleRequest from '../../Utils/Handlerequest';
+import useHandleCrud from '../../Utils/HandleCrud';
 import { ImageUplaod } from '../../Utils/UploadImage';
+import noimage from '../../assets/noimage.png';
 import './Create.scss';
-import noimage from '../../assets/noimage.png'
 
 const Create = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const params = useParams();
-  const [delopen, setdelopen] = useState(false);
+  const [delId, setDelId] = useState('');
   const [image, setImage] = useState('');
-  const [course, setCourse] = useState({});
-  const [isLoading, setisLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
-  const [category, setCategory] = useState(course?.category || '');
-  const token = localStorage.getItem('access_token');
+
+  // fetch course data
+  const { result: course } = useCustomFetch({
+    url: '/course/getcourse',
+    id: params.id,
+  });
 
   const defaultCategory = course?.category || '';
   const [inputs, setInputs] = useState({
@@ -48,63 +48,40 @@ const Create = () => {
     });
   }, [course, imageUrl]);
 
-  useEffect(() => {
-    const handleGetSingleCourse = async () => {
-      try {
-        const res = await handleRequest({
-          url: '/course/getcourse',
-          token,
-          method: 'POST',
-          data: { courseId: params?.id },
-          userId: user?._id,
-        });
-        setCourse(res);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    handleGetSingleCourse();
-  }, [params, user._id]);
-
   const handleChange = useCallback((name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   }, [setInputs]);
 
+  // course update data pass
+  const { isLoading, fetchData } = useHandleCrud(
+    '/course/update',
+    'PUT',
+    inputs,
+    'Course updated',
+    createCourse
+  );
 
+  // Course update
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!inputs.title || !inputs.description || !inputs.imageUrl || !inputs.price || !inputs.category) {
-      toast.error("Please fill in all the required fields");
+      toast.error('Please fill in all the required fields');
       return;
     }
-    try {
-      setisLoading(true);
-      const res = await handleRequest({
-        url: '/course/update',
-        token,
-        data: inputs,
-        method: 'PUT',
-        userId: user?._id,
-        successmsg: 'Course updated',
-      });
-      dispatch(createCourse(res));
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    } finally {
-      setisLoading(false);
+    else {
+      await fetchData();
     }
   };
 
-  const { result, fetchData } = useCustomFetch({
+  // get all chapters
+  const { result: chapters, Refetch } = useCustomFetch({
     userId: user?._id,
     url: '/chapter/getall',
     id: params?.id,
   });
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
 
+  // Image submit 
   const imagesubmit = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -112,33 +89,35 @@ const Create = () => {
       reader.onload = (e) => setImage(e.target.result);
       reader.readAsDataURL(file);
     }
-    const url = await ImageUplaod(file)
-    setImageUrl(url)
+    const url = await ImageUplaod(file);
+    setImageUrl(url);
   };
 
+  // select options
   const options = [
-    { id: 1, title: "category" },
-    { id: 2, title: "engineering" },
-    { id: 3, title: "technology" },
-    { id: 4, title: "computerscience" },
-    { id: 5, title: "accounting" },
-    { id: 6, title: "film" },
-    { id: 7, title: "music" },
+    { id: 1, title: 'category' },
+    { id: 2, title: 'engineering' },
+    { id: 3, title: 'technology' },
+    { id: 4, title: 'computerscience' },
+    { id: 5, title: 'accounting' },
+    { id: 6, title: 'film' },
+    { id: 7, title: 'music' },
   ];
 
+  // delete chapter data  pass
+  const { fetchData: deleteFetchData } = useHandleCrud(
+    '/chapter/delete',
+    'DELETE',
+    { chapterId: delId },
+    'Chapter has been deleted'
+  );
+
+  // delete chapter
   const deleteChapter = async (chapterId) => {
-    try {
-      const res = await handleRequest({
-        url: '/chapter/delete',
-        token,
-        data: { chapterId: chapterId },
-        method: "DELETE",
-        userId: user?._id,
-      })
-    } catch (error) {
-      toast.error('deleting chapter failed')
-    }
-  }
+    setDelId(chapterId);
+    await deleteFetchData();
+    Refetch()
+  };
 
   return (
     <div className="create">
@@ -173,11 +152,10 @@ const Create = () => {
               </label>
             </div>
             {inputs.imageUrl || imageUrl ? (
-              <img src={inputs.imageUrl || imageUrl} alt={inputs.title} loading='lazy' />
+              <img src={inputs.imageUrl || imageUrl} alt={inputs.title} loading="lazy" />
             ) : (
-              <img className='noimage' src={noimage} alt={inputs.title} loading='lazy' />
+              <img className="noimage" src={noimage} alt={inputs.title} loading="lazy" />
             )}
-
           </div>
         </div>
 
@@ -190,26 +168,26 @@ const Create = () => {
                 <CiCirclePlus size={25} />
               </Link>
             </div>
-            <div className='chapterslists'>
-              {result?.length > 0 ?
-                result.map((cl) => (
-                  <div key={cl.title} className='chapterslist'>
-                    <div className='side'>
+            <div className="chapterslists">
+              {chapters?.length > 0 ? (
+                chapters.map((cl) => (
+                  <div key={cl._id} className="chapterslist">
+                    <div className="side">
                       <FaBarsProgress size={25} />
                       <span>{cl?.title}</span>
                     </div>
-                    <div className='side'>
-                      <p>{cl?.isPublished === true ? "publish" : "published"}</p>
+                    <div className="side">
+                      <p>{cl?.isPublished === true ? 'publish' : 'published'}</p>
                       <Link to={`/teachermode/chaptercreate/${params?.id}`} state={cl?._id}>
                         <MdOutlineEdit size={20} />
                       </Link>
-                      <MdDelete size={25} className="del" onClick={() => deleteChapter(cl?._id)} />
+                      <MdDelete size={25} className="del" onClick={() => deleteChapter(cl._id)} />
                     </div>
                   </div>
                 ))
-                :
-                "Create New Chapters"
-              }
+              ) : (
+                <p>Create New Chapters</p>
+              )}
             </div>
           </div>
 
