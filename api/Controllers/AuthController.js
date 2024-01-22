@@ -23,7 +23,7 @@ export const Register = async (req, res, next) => {
 };
 
 export const Login = async (req, res, next) => {
-    const { email, password: enteredPassword } = req.body;
+    const { email, password: enteredPassword } = req.body;    
 
     try {
         const user = await User.findOne({ email });
