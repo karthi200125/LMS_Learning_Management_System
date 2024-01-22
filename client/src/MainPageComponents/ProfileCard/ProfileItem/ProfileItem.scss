@@ -1,3 +1,5 @@
+@import '../../../App.scss';
+
 .profileitem {
     width: 100%;
     padding: 10px;
@@ -8,4 +10,5 @@
     &:hover {
         background-color: rgba(0, 0, 0, 0.05);
     }
+        
 }

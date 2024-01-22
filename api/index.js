@@ -8,6 +8,8 @@ import ChapterRoute from './Routes/ChapterRoutes.js';
 import CourseRoute from './Routes/CourseRoutes.js';
 import { handleError } from './Utils/ErrorHandlingMidleware.js';
 import cookieParser from 'cookie-parser';
+import stripe from 'stripe';
+const stripeSecretKey = 'sk_test_51ObDkgSFNN9FZMmYG1N9NZC0PQbfmGi03sCL9UN7flJe2cADRgQunLeKPSVnWS51rc2mmFmHwEOCMFA5Za605SD400gGAGcCuE';
 
 const app = express();
 dotenv.config();
@@ -28,6 +30,7 @@ app.use("/api/user", UserRoute);
 app.use("/api/chapter", ChapterRoute);
 app.use("/api/course", CourseRoute);
 
+stripe(stripeSecretKey);
 
 // Error handling middleware should be the last middleware
 app.use(handleError);

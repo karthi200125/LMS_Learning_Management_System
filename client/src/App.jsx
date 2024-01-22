@@ -1,9 +1,11 @@
 import React, { lazy, Suspense } from 'react';
-import 'react-loading-skeleton/dist/skeleton.css';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import './App.scss';
+import Pay from './Utils/Pay';
+import Success from './Pages/success/success';
+import LoadingPage from './Pages/LoadingPage/LoadingPage';
 const NavBar = lazy(() => import('./MainPageComponents/Navbar/Navbar'))
 const SideBar = lazy(() => import('./MainPageComponents/SideBar/SideBar'))
 const Chapter = lazy(() => import('./Pages/Chapter/Chapter'))
@@ -13,6 +15,7 @@ const DashBoard = lazy(() => import('./Pages/DashBoard/DashBoard'))
 const Home = lazy(() => import('./Pages/Home/Home'))
 const LandingPage = lazy(() => import('./Pages/LandingPage/LandingPage'))
 const TeacherMode = lazy(() => import('./Pages/TeacherMode/TeacherMode'))
+
 
 const App = () => {
   const { user: currentUser } = useSelector(state => state.auth);
@@ -55,27 +58,35 @@ const App = () => {
       children: [
         {
           path: '/',
-          element: <Suspense ><Home /></Suspense>
+          element: <Suspense fallback={<LoadingPage />} ><Home /></Suspense>
         },
         {
           path: '/course/:id',
-          element: <Suspense > <Course /></Suspense>
+          element: <Suspense fallback={<LoadingPage />}> <Course /></Suspense>
         },
         {
           path: '/dashboard/:id',
-          element: <Suspense> <DashBoard /></Suspense>
+          element: <Suspense fallback={<LoadingPage />}> <DashBoard /></Suspense>
         },
         {
           path: '/teachermode',
-          element: <Suspense> <TeacherMode /></Suspense>
+          element: <Suspense fallback={<LoadingPage />}> <TeacherMode /></Suspense>
         },
         {
           path: '/teachermode/create/:id',
-          element: <Suspense><Create /></Suspense>
+          element: <Suspense fallback={<LoadingPage />}><Create /></Suspense>
         },
         {
           path: '/teachermode/chaptercreate/:id',
-          element: <Suspense><Chapter /></Suspense>
+          element: <Suspense fallback={<LoadingPage />}><Chapter /></Suspense>
+        },
+        {
+          path: '/pay',
+          element: <Suspense fallback={<LoadingPage />}><Pay /></Suspense>
+        },
+        {
+          path: '/success',
+          element: <Suspense fallback={<LoadingPage />}><Success /></Suspense>
         }
       ]
     },
@@ -83,7 +94,7 @@ const App = () => {
       path: '/landingpage',
       element: (
         <UnauthenticatedRoute>
-          <Suspense> <LandingPage /></Suspense>
+          <Suspense fallback={<LoadingPage />}> <LandingPage /></Suspense>
         </UnauthenticatedRoute>
       ),
     }

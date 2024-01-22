@@ -10,7 +10,7 @@ const Card = ({ card, color, bs, border }) => {
     const { user } = useSelector(state => state.auth)
     const completeChapters = card?.chapters?.filter((chapter) => user?.ChapterCompleted.includes(chapter));
 
-    const Progressopen = card?.chapters.some(chapterId => user?.ChapterCompleted.includes(chapterId));    
+    const Progressopen = card?.chapters.some(chapterId => user?.ChapterCompleted.includes(chapterId));
 
     return (
         <Link
@@ -24,7 +24,7 @@ const Card = ({ card, color, bs, border }) => {
             <img src={card.imageUrl} alt="" loading='lazy' />
             <div className='content'>
                 <h1>{card.title}</h1>
-                <p className='carddesc'>{card.description}</p>
+                <p className='carddesc' style={{ color: color }}>{card.description}</p>
                 <div className='chapter'>
                     <IoBookOutline size={20} className="book" />
                     <span>{card?.chapters?.length} Chapters</span>

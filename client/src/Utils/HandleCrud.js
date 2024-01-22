@@ -12,7 +12,7 @@ const useHandleCrud = (url, method, data, successmsg, dp, nav , disp ) => {
     const token = localStorage.getItem('access_token');
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    
+        
     const fetchData = async () => {
         try {
             setisLoading(true)

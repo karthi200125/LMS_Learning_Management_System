@@ -16,10 +16,24 @@
         @include center;
         margin-top: 30px;
 
+        @include mobile {
+            margin-top: 50px
+        }
+
         .videolock {
             @include fc;
             color: white;
             gap: 10px;
+        }
+
+        .player {
+            height: 700px;
+            width: 1000px;
+
+            @include mobile {
+                width: 300px !important;
+                height: 300px !important;
+            }
         }
     }
 
@@ -30,11 +44,22 @@
         padding: 10px 30px;
         text-transform: capitalize;
 
+        @include mobile {
+            padding: 10px;
+        }
+
         .top {
             width: 100%;
             @include sb;
             border-bottom: 1px solid rgba(0, 0, 0, 0.2);
             padding: 10px;
+
+            @include mobile {
+                font-size: 10px;
+                padding: 10px 0;
+                @include fc;
+                gap: 10px;
+            }
         }
 
         p {
@@ -52,6 +77,13 @@
         width: 100%;
         padding: 10px;
         background-color: rgba(255, 255, 0, 0.5);
+
+        @include mobile {}
     }
-    
+
+}
+
+.visa {
+    width: 300px;
+    height: 300px;
 }

@@ -4,14 +4,15 @@ import { MdArrowRightAlt, MdDelete, MdModeEdit } from "react-icons/md";
 import { RiArrowUpDownLine } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "sonner";
 import Button from '../../MainPageComponents/Button/Button';
 import Input from "../../MainPageComponents/Input/Input";
 import Modal from "../../MainPageComponents/Modal/Modal";
 import Skeleton from "../../MainPageComponents/Skeleton/Skeleton";
 import { deleteCourse } from "../../Redux/CourseSlice";
+import { AxiosRequest } from "../../Utils/AxiosRequest";
 import useCustomFetch from "../../Utils/CustomFetch";
 import useHandleCrud from "../../Utils/HandleCrud";
-import handleRequest from "../../Utils/Handlerequest";
 import './TeacherMode.scss';
 
 const TeacherMode = () => {
@@ -39,22 +40,18 @@ const TeacherMode = () => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
+
   // course Title create 
   const handleTitleCreate = useCallback(async (e) => {
     e.preventDefault();
     try {
       settitleCreateLoad(true);
-      const newcourse = await handleRequest({
-        url: '/course/create',
-        token,
-        data: inputs,
-        method: "POST",
-        userId: user?._id,
-        successmsg: "Course title created"
-      });
+      const res = await AxiosRequest.post('/course/create', inputs);
+      toast.success("course title created sucessfully")
+      const newcourse = res.data
       navigate(`/teachermode/create/${newcourse?._id}`, { state: { newcourse } });
     } catch (error) {
-      console.error(error);
+      toast.error(error?.response?.data?.message);
     } finally {
       settitleCreateLoad(false);
     }

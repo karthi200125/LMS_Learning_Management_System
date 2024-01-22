@@ -3,21 +3,23 @@ import { FiAlertTriangle } from 'react-icons/fi';
 import { IoLockClosedOutline } from 'react-icons/io5';
 import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../MainPageComponents/Button/Button';
 import { ChapterCompleted } from '../../Redux/AuthSlice';
 import useCustomFetch from '../../Utils/CustomFetch';
 import useHandleCrud from '../../Utils/HandleCrud';
 import './Course.scss';
-
+import Particless from '../../MainPageComponents/Particles/Particles';
 
 const Course = () => {
   const params = useParams();
   const url = new URL(window.location.href);
   const chapterId = url.searchParams.get('chapterId');
-  const { user } = useSelector(state => state.auth)
+  const { user } = useSelector(state => state.auth);
+  const navigate = useNavigate()
+  const [particle, setparticle] = useState(false)
 
-  // get course 
+  // get course
   const { result: courseData } = useCustomFetch({
     url: '/course/getcourse',
     id: params.id,
@@ -29,39 +31,46 @@ const Course = () => {
     if (courseData?.chapters && courseData?.chapters.length > 0) {
       setFirstChapter(courseData?.chapters[0]);
     }
-  }, [courseData ]);
+  }, [courseData]);
 
-  const { result, Refetch } = useCustomFetch({
+  const { result: chapterData, Refetch } = useCustomFetch({
     url: '/chapter/getchapter',
     id: chapterId ? chapterId : firstChapter,
   });
 
   // user update
-  const { isLoading, fetchData } = useHandleCrud(
+  const { isLoading: isChapterLoading, fetchData: updateChapter } = useHandleCrud(
     '/user/update',
     'PUT',
     { userId: user?._id, chapterId: chapterId ? chapterId : firstChapter },
-    "Chpater has been completed",
-    ChapterCompleted,
+    "Chapter has been completed",
+    ChapterCompleted
   );
 
-  // mark as complete  
-  const markasComplete = async () => {
-    await fetchData();
+  // mark as complete
+  const markAsComplete = async () => {
+    await updateChapter();
     Refetch();
+    setparticle(true)
   };
 
-  const chapterComplete = user?.ChapterCompleted?.includes(chapterId ? chapterId : firstChapter)
-  const free = result?.isFree === true;
+  const chapterComplete = user?.ChapterCompleted?.includes(chapterId ? chapterId : firstChapter);
+  const free = chapterData?.isFree === true;
+
+  const gotopaypaga = () => {
+    navigate('/pay', { state: { courseId: courseData?._id, coursedata: courseData, userId: user?._id } })
+  }
 
   return (
     <div className="chapter">
-      {!free &&
+      {chapterComplete && <Particless />}
+
+      {!free && (
         <div className="banner">
           <FiAlertTriangle size={20} />
           <p>You need to purchase this course to watch this chapter</p>
         </div>
-      }
+      )}
       <div className="video">
         {!free ? (
           <div className="videolock">
@@ -70,30 +79,31 @@ const Course = () => {
           </div>
         ) : (
           <ReactPlayer
-            url={result?.videoUrl}
+            url={chapterData?.videoUrl}
             height="500px"
-            width="1000px"
+            width="1000px"            
             controls={true}
             light={true}
             playing={true}
+            className="player"
           />
         )}
       </div>
       <div className="content">
         <div className="top">
-          <h1>{result?.title}</h1>
+          <h1>{chapterData?.title}</h1>
           <Button
-            title={free ? chapterComplete ? "chapter completed" : "mark as Complete" : `Enroll for ₹ ${courseData?.price} RS`}
+            title={free ? (chapterComplete ? "Chapter completed" : "Mark as Complete") : `Enroll for ₹ ${courseData?.price} RS`}
             glow={false}
-            onClick={free && !chapterComplete ? markasComplete : undefined}
-            isLoading={isLoading}
+            onClick={free && !chapterComplete ? markAsComplete : gotopaypaga}
+            isLoading={isChapterLoading}
             classname={chapterComplete && 'transparent'}
             bg={chapterComplete && '#4FBF26'}
           />
         </div>
-        <p>{result?.description}</p>
+        <p>{chapterData?.description}</p>
       </div>
-    </div>
+    </div >
   );
 };
 

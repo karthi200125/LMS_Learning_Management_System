@@ -6,7 +6,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     @include sb;
     padding: 20px 40px;
-
+    position: relative;
 
     @include mobile {
         padding: 10px;

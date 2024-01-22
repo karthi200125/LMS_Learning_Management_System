@@ -8,7 +8,16 @@ const Footer = () => {
       
       <div className="lists">
         <ul>
-          <h1>Coursera</h1>
+          <h1>รｋⓘⓁ𝐋Ş𝕡卄єяє</h1>
+          <li>About</li>
+          <li>What we offer</li>
+          <li>Leadership</li>
+          <li>Careers</li>
+          <li>Premium</li>
+          <li>Social impacts</li>
+        </ul>
+        <ul>
+          <h1>Support</h1>
           <li>About</li>
           <li>What we offer</li>
           <li>Leadership</li>

@@ -43,11 +43,13 @@
 
     .right {
         @include center;
-        gap: 10px;
+        gap: 10px;        
 
         @include mobile {
             gap: 5px;
         }
+
+        
 
     }
 }

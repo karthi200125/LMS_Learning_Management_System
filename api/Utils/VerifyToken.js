@@ -3,12 +3,11 @@ import { createError } from './CreateError.js';
 import UserModel from '../Models/UserModel.js';
 
 export const VerifyToken = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    // console.log(authHeader)
+    const authHeader = req.headers.authorization;    
     if (!authHeader) return next(createError(401, "You are not authenticated"));
-    const token = authHeader.split(' ')[1];
-    // console.log(token)
+    const token = authHeader.split(' ')[1];    
     if (!token) return next(createError(401, "Invalid token format"));
+    
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
         if (err) return next(createError(401, "Token is not valid"));
         req.userId = decoded;

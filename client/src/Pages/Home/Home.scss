@@ -19,15 +19,10 @@
         align-items: center;
         flex-direction: column;
         gap: 10px;
-
-        // &::-webkit-scrollbar {
-        //     display: none;
-        // }
-
+        
         .cards {
             width: 100%;
-            height: max-content;
-            // overflow: scroll;
+            height: max-content;            
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 30px;
