@@ -66,7 +66,7 @@ const DashBoard = () => {
                         style={{ border: border ? '' : 'none' }}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="name-edit"
+                        className="nameedit"
                     />
                     <CiEdit size={25} onClick={() => setBorder(!border)} />
                 </div>

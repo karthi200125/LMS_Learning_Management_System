@@ -7,7 +7,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useCustomFetch from '../../../Utils/CustomFetch';
 import ProfileItem from '../../ProfileCard/ProfileItem/ProfileItem';
-import User from '../../User/User'
+import noprofile from '../../../assets/noprofile.png'
 
 const MobileNav = () => {
     const [Open, setOpen] = useState(false)
@@ -40,9 +40,7 @@ const MobileNav = () => {
         url: '/course/getcourse',
         id: params.id,
     });
-
-    console.log(user)
-
+    
     return (
         <div className='mobilenav'>
             <RiMenu3Line onClick={() => setOpen(!Open)} size={25} />
@@ -53,7 +51,7 @@ const MobileNav = () => {
                 <div className="side">
                     {pathname !== `/course/${params.id}` &&
                         <div className="homecon">
-                            <img src={user?.profileImg} alt="user" />
+                            <img src={user.profileImg || noprofile} alt="user" />
                             <h1>{user?.username}</h1>
                             <p>{user?.role}</p>
                             <div className='homeitems'>
