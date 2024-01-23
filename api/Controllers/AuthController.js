@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import { jwtDecode } from "jwt-decode";
 
 export const Register = async (req, res, next) => {
-    const { username, email, password } = req.body;
+    const { username, email, password , role } = req.body;
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) return next(createError(400, "User already exists"));
@@ -13,7 +13,7 @@ export const Register = async (req, res, next) => {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        const newUser = await User.create({ username, email, password: hashedPassword });
+        const newUser = await User.create({ username, email, password: hashedPassword, role });
         res.status(201).json(newUser);
     } catch (error) {
         console.error(error);
@@ -22,7 +22,7 @@ export const Register = async (req, res, next) => {
 };
 
 export const Login = async (req, res, next) => {
-    const { email, password: enteredPassword } = req.body;    
+    const { email, password: enteredPassword } = req.body;
 
     try {
         const user = await User.findOne({ email });
@@ -56,7 +56,8 @@ export const GoogleLogin = async (req, res, next) => {
                 username: name,
                 email: email,
                 googleid: hashedPassword,
-                profileImg: picture
+                profileImg: picture,
+                role:"student"
             });
             const token = jwt.sign({ id: newUser._id, isAdmin: newUser.role }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
             const user = newUser._doc;
@@ -65,7 +66,7 @@ export const GoogleLogin = async (req, res, next) => {
             const comparePassword = bcrypt.compareSync(azp, existuser.googleid);
 
             if (comparePassword) {
-                const token = jwt.sign({ id: existuser._id, isAdmin: existuser.role }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });                
+                const token = jwt.sign({ id: existuser._id, isAdmin: existuser.role }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
                 const user = existuser._doc;
                 res.cookie("access_token", token, { httpOnly: true, secure: true, sameSite: 'Lax' }).status(200).json({ token, ...user });
             } else {

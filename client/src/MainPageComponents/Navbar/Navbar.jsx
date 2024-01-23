@@ -29,7 +29,7 @@ const Navbar = () => {
           pathname === `/teachermode/chaptercreate/${params.id}` ?
           <Button title='Exit' icon={<MdArrowRightAlt size={25} />} glow={false} classname='transparent' onClick={() => navigate('/')} color='black' />
           :
-          user?.role === 'admin' ?
+          user?.role === 'admin' || user?.role === 'teacher' ?
             <Button title='Teacher Mode' glow={false} icon={<MdArrowRightAlt size={25} />} classname='btn' onClick={() => navigate('/teachermode')} />
             : ""
         }

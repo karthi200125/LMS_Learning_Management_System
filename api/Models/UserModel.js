@@ -28,7 +28,7 @@ const UserSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['student', 'admin'],
+        enum: ['student', 'admin' , 'teacher'],
         default: 'student'
     },
     ChapterCompleted: [{

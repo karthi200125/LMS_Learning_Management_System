@@ -7,6 +7,17 @@
     gap: 10px;
     padding: 10px 20px;
 
+    .select {
+        @include fr;
+        gap: 20px;
+        width: 100%;
+        
+        .cbox{
+            @include fr;
+            gap: 5px;
+        }
+    }
+
     h2 {
         font-size: 15px;
     }

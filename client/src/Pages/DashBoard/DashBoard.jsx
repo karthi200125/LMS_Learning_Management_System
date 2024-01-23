@@ -74,7 +74,7 @@ const DashBoard = () => {
             </form>
             <div className="enrooledcourses">
                 <h1>Your Enrolled Courses</h1>
-                <div className="courses">
+                <div className="courses">                    
                     {filteredEnrolledCourses?.length === 0 ?
                         "No courses enrolled"
                         :
