@@ -60,7 +60,7 @@ const Course = () => {
   const gotopaypaga = () => {
     navigate('/pay', { state: { courseId: courseData?._id, coursedata: courseData, userId: user?._id } })
   }
-
+    
   return (
     <div className="chapter">
       {chapterComplete && <Particless />}

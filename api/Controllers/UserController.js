@@ -7,16 +7,24 @@ import { createError } from '../Utils/CreateError.js';
 export const UserUpdate = async (req, res, next) => {
     const { userId, chapterId } = req.body;
     try {
+        const user = await User.findById(userId);
+
+        if (user.ChapterCompleted.includes(chapterId)) {
+            return res.status(400).json({ error: 'Chapter already completed.' });
+        }
+
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             { $set: req.body, $push: { ChapterCompleted: chapterId } },
             { new: true }
         );
+
         res.status(200).json(updatedUser);
     } catch (error) {
         next(createError(500, 'Update failed'));
     }
 };
+
 
 export const StripeCheckout = async (req, res, next) => {
     const { courseId, userId, coursedata } = req.body;

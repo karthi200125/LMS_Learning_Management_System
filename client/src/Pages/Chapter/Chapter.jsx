@@ -15,7 +15,7 @@ const Chapter = () => {
   const editId = location.state;
   const [openUrl, setOpenUrl] = useState(false);
   const [free, setFree] = useState(false);
-  const [videoUrl, setVideoUrl] = useState('https://youtu.be/gizihSJ63o4?si=uQcYK_JY-dPg0Vz5');
+  const [videoUrl, setVideoUrl] = useState('https://youtu.be/qKoajPPWpmo?si=xBDmig11lCqWAhMr');
   const [inputUrl, setInputUrl] = useState('');
 
   const [inputs, setInputs] = useState({

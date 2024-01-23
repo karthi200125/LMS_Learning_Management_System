@@ -21,7 +21,7 @@ export const CourseDelete = async (req, res, next) => {
     try {
         await ChapterModel.deleteMany({ courseId });
         await CourseModel.findByIdAndDelete(courseId);
-        await UserModel.findByIdAndUpdate(userId, { $pull: { coursesEnrolled: courseId } });
+        await UserModel.findByIdAndUpdate(userId, { $pull: { myCreatedCourses: courseId } });
         res.status(200).json("Course deleted successfully");
     } catch (error) {
         next(createError(500, "Chapter delete failed"));

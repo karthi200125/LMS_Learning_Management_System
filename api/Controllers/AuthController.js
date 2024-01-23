@@ -6,7 +6,6 @@ import { jwtDecode } from "jwt-decode";
 
 export const Register = async (req, res, next) => {
     const { username, email, password } = req.body;
-
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) return next(createError(400, "User already exists"));

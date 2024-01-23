@@ -19,6 +19,8 @@ const SideBar = () => {
     url: '/chapter/getall',
     id: params.id,
   });
+
+  // console.log(result)
   
   return (
     <div className='sidebar'>

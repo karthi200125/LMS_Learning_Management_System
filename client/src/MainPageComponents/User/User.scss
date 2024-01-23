@@ -4,6 +4,9 @@
 .user {
     @include fr;
     gap: 15px;
+    @include mobile {
+        display: none;
+    }
 
     span {
         @include mobile {
