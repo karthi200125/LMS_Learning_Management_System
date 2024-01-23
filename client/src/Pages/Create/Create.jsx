@@ -172,11 +172,11 @@ const Create = () => {
               {chapters?.length > 0 ? (
                 chapters.map((cl) => (
                   <div key={cl._id} className="chapterslist">
-                    <div className="side">
+                    <div className="cside">
                       <FaBarsProgress size={25} />
                       <span>{cl?.title}</span>
                     </div>
-                    <div className="side">
+                    <div className="cside">
                       <p>{cl?.isPublished === true ? 'publish' : 'published'}</p>
                       <Link to={`/teachermode/chaptercreate/${params?.id}`} state={cl?._id}>
                         <MdOutlineEdit size={20} />
