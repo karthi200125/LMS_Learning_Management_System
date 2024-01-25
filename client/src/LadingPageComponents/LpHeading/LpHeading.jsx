@@ -15,7 +15,7 @@ const LpHeading = () => {
                     <span>Full Stack</span>
                 </div>
             </div>
-            <p>With Our LMS</p>
+            <span>With Our LMS</span>
         </div>
     );
 }

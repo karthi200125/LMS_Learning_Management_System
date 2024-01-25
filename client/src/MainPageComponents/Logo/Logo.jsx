@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import './Logo.scss'
 import { memo } from 'react'
-import logoimg from '../../assets/cap.png'
+import logoimg from '../../assets/cap.ico'
 
 const Logo = () => {
 

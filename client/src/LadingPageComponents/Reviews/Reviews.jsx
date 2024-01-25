@@ -1,7 +1,7 @@
 import './Reviews.scss'
 import rev1 from '../../assets/rev1.jpg'
-import rev3 from '../../assets/rev3.jpg'
-import rev2 from '../../assets/rev2.jpg'
+import rev3 from '../../assets/rev3.webp'
+import rev2 from '../../assets/rev2.webp'
 
 const Reviews = () => {
 
