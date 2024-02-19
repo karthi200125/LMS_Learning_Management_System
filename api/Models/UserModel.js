@@ -26,9 +26,15 @@ const UserSchema = new Schema({
     profileImg: {
         type: String
     },
+    profileThumbnailimg: {
+        type: String
+    },
+    country: {
+        type: String
+    },
     role: {
         type: String,
-        enum: ['student', 'admin' , 'teacher'],
+        enum: ['student', 'admin', 'teacher'],
         default: 'student'
     },
     ChapterCompleted: [{

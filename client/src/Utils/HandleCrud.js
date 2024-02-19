@@ -4,7 +4,7 @@ import { AxiosRequest } from "./AxiosRequest";
 import { toast } from 'sonner';
 import { useNavigate } from "react-router-dom";
 
-const useHandleCrud = (url, method, data, successmsg, dp, nav , disp ) => {
+const useHandleCrud = (url, method, data, successmsg, dp, nav, disp) => {
 
     const [Data, setData] = useState([])
     const [err, seterr] = useState(false)
@@ -12,7 +12,7 @@ const useHandleCrud = (url, method, data, successmsg, dp, nav , disp ) => {
     const token = localStorage.getItem('access_token');
     const dispatch = useDispatch();
     const navigate = useNavigate()
-        
+
     const fetchData = async () => {
         try {
             setisLoading(true)
@@ -29,12 +29,13 @@ const useHandleCrud = (url, method, data, successmsg, dp, nav , disp ) => {
             toast.success(successmsg)
             if (typeof dp === 'function') {
                 dispatch(dp(res.data));
-                dispatch(disp);                
-            }            
-            navigate(nav)            
+                dispatch(disp);
+            }
+            navigate(nav)
         } catch (err) {
             seterr(err)
             toast.error(err?.response?.data?.message)
+            console.log(err)
         } finally {
             setisLoading(false)
         }
