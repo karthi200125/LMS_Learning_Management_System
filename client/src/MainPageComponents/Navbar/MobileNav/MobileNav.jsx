@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import useCustomFetch from '../../../Utils/CustomFetch';
 import ProfileItem from '../../ProfileCard/ProfileItem/ProfileItem';
 import noprofile from '../../../assets/noprofile.png'
+import { toast } from 'sonner';
+import { logout } from '../../../Redux/AuthSlice';
 
 const MobileNav = () => {
     const [Open, setOpen] = useState(false)
