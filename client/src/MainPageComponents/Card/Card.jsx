@@ -10,7 +10,7 @@ const Card = ({ card, color, bs, border }) => {
     const { user } = useSelector(state => state.auth)
     const completeChapters = card?.chapters?.filter((chapter) => user?.ChapterCompleted?.includes(chapter));
 
-    const Progressopen = card?.chapters.some(chapterId => user?.ChapterCompleted.includes(chapterId));
+    const Progressopen = card?.chapters?.some(chapterId => user?.ChapterCompleted?.includes(chapterId));
 
     return (
         <Link

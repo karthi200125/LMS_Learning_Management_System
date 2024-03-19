@@ -53,7 +53,7 @@ const RegisterModal = ({ isOpen, onClose, onLoginClick }) => {
         onLoginClick();
     }
 
-    const handleGoogleLogin = async (credentialResponse) => {        
+    const handleGoogleLogin = async (credentialResponse) => {
         await googleLogin(credentialResponse);
     }
 

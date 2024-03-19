@@ -15,7 +15,7 @@ const Home = () => {
   const searchQuery = location.state;
 
   const { result, isLoading } = useCustomFetch({
-    url: `/course/getallcourses`,    
+    url: `/course/getallcourses`,
   });
 
   const filteredData = useMemo(() => {

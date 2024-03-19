@@ -1,9 +1,7 @@
 @import '../../App.scss';
 
-.card {
-    width: 100%;
-    flex: 0 0 calc(33.33% - 10px);
-    max-width: 0 0 calc(33.33% - 10px);
+.card {    
+    width: 32%;
     height: 400px;
     border-radius: 20px;
     padding: 20px;
@@ -12,6 +10,7 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     color: black;
     text-decoration: none;
+    margin: 0 auto;    
 
     @include mobile {
         padding: 10px;
@@ -20,8 +19,17 @@
 
     @include tablet {
         padding: 10px;
-        flex: 0 0 calc(50% - 10px);
-        max-width: 0 0 calc(50% - 10px);
+        width: 47%;                
+    }
+
+    @include laptop {
+        padding: 10px;
+        width: 48%;                
+    }
+
+    @include exlarge {
+        padding: 10px;
+        width: 24%;                
     }
 
 

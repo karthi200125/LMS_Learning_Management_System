@@ -9,19 +9,14 @@
   .lpcards {
     width: 100%;
     height: max-content;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 30px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
     padding: 20px;
 
     @include mobile {
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       padding: 10px;
-    }
-
-    @include tablet {
-      grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
-    }
+    }    
   }
 
 

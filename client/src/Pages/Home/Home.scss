@@ -9,9 +9,8 @@
     flex-direction: column;
     padding: 10px;
     overflow: hidden !important;
-    gap: 10px;
+    gap: 10px;    
     
-
     .cardcon {
         width: 100%;
         height: max-content;
@@ -19,24 +18,23 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        gap: 10px;
+        gap: 10px;        
 
-        &::-webkit-scrollbar{
+        &::-webkit-scrollbar {
             display: none;
         }
-        
+
         .cards {
             width: 100%;
             height: max-content;            
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 30px;
-            padding: 20px;
+            display: flex;
+            flex-flow: wrap row;
+            gap: 10px;
+            padding: 20px;            
 
             @include mobile {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                padding: 0;
             }
-
         }
 
         .pagination {
@@ -46,4 +44,3 @@
         }
     }
 }
-

@@ -7,7 +7,7 @@ import { useState } from 'react';
 const User = () => {
     const { user } = useSelector(state => state.auth);
     const [profileOpen, setProfileOpen] = useState(false)
-            
+                
     return (
         <div className='user'>
             <span>{user?.username}</span>
