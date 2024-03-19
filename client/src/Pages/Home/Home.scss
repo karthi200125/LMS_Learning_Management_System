@@ -9,8 +9,8 @@
     flex-direction: column;
     padding: 10px;
     overflow: hidden !important;
-    gap: 10px;    
-    
+    gap: 10px;
+
     .cardcon {
         width: 100%;
         height: max-content;
@@ -18,7 +18,7 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        gap: 10px;        
+        gap: 10px;
 
         &::-webkit-scrollbar {
             display: none;
@@ -26,14 +26,19 @@
 
         .cards {
             width: 100%;
-            height: max-content;            
+            height: max-content;
             display: flex;
             flex-flow: wrap row;
             gap: 10px;
-            padding: 20px;            
+            padding: 20px;
+            overflow-y: scroll;
 
             @include mobile {
                 padding: 0;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
             }
         }
 
